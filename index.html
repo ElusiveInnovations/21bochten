@@ -1098,21 +1098,23 @@ function openFeedback(){
   lastFocus=document.activeElement;
   const d = fbLoad();
   sheet.innerHTML = `<div class="sheet-head"><div><p class="eyebrow">Ontwerp 21 bochten</p><h3 id="sheet-title" style="font-size:2rem">Wat vind je ervan?</h3></div><button class="close" id="x" aria-label="Sluiten">×</button></div>
-    <p class="muted">Vier korte vragen. Daarna zet je knop je antwoord klaar in WhatsApp, en stuur je het naar Maurice.</p>
+    <p class="muted">Vier korte vragen. Daarna opent je mail met je antwoord erin, gericht aan Maurice. Jij drukt alleen nog op versturen.</p>
     <form class="form" id="fb">
       <label for="fb-naam">Je naam<input id="fb-naam" autocomplete="name" value="${esc(d.naam||"")}"></label>
       <div class="fb-q"><b>Wil je zelf een pagina met 21 bochten?</b><div class="choice">${[["ja","Ja"],["nee","Nee"],["weet","Weet ik nog niet"]].map(([v,l])=>`<label><input type="radio" name="fb-mee" value="${v}" ${d.mee===v?"checked":""}>${l}</label>`).join("")}</div></div>
       <label class="fb-q" for="fb-bedrijven"><b>Welke bedrijven ken jij die een bocht willen?</b><small>Je eigen werkgever telt ook. Eén per regel.</small><textarea id="fb-bedrijven" rows="3">${esc(d.bedrijven||"")}</textarea></label>
       <label class="fb-q" for="fb-mooi"><b>Wat vind je mooi?</b><textarea id="fb-mooi" rows="2">${esc(d.mooi||"")}</textarea></label>
       <label class="fb-q" for="fb-anders"><b>Wat moet anders?</b><textarea id="fb-anders" rows="2">${esc(d.anders||"")}</textarea></label>
-      <button class="btn btn-primary" type="submit">Stuur via WhatsApp</button>
+      <button class="btn btn-primary" type="submit">Mail naar Maurice</button>
+      <small class="muted">Opent je mail niet? Mail dan naar <b style="user-select:all">info@elusiveinnovations.com</b> en plak de tekst erin.</small>
       <button class="btn btn-ghost" type="button" id="fb-copy">Of kopieer de tekst</button>
     </form>`;
   const read = () => ({naam:sheet.querySelector("#fb-naam").value.trim(), mee:(sheet.querySelector('input[name="fb-mee"]:checked')||{}).value, bedrijven:sheet.querySelector("#fb-bedrijven").value.trim(), mooi:sheet.querySelector("#fb-mooi").value.trim(), anders:sheet.querySelector("#fb-anders").value.trim()});
   sheet.querySelector("#fb").addEventListener("input",()=>fbSave(read()));
   sheet.querySelector("#fb").addEventListener("submit",e=>{ e.preventDefault(); const t=fbText(read()); fbSave(read());
-    const a=document.createElement("a"); a.href="https://wa.me/?text="+encodeURIComponent(t); a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
-    toast("WhatsApp opent. Kies Maurice en druk op versturen."); });
+    const d=read(), subj="Feedback 21 bochten"+(d.naam?" van "+d.naam:"");
+    location.href="mailto:info@elusiveinnovations.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(t);
+    toast("Je mail opent. Druk op versturen."); });
   sheet.querySelector("#fb-copy").addEventListener("click",ev=>copyText(fbText(read()), ev.currentTarget));
   sheet.querySelector("#x").addEventListener("click",closeSheet);
   scrim.hidden=false; sheet.hidden=false; sheet.querySelector("#fb-naam").focus();
