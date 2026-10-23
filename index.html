@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>21 bochten</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* Layout: de echte slingerweg van de Alpe d'Huez is het hart van elke pagina. Kaarten zijn altijd "nacht", de rest volgt het thema. */
+:root{
+  --bg:#F3F5F8; --bg2:#E8ECF2; --surface:#FFFFFF; --ink:#0D1828; --muted:#5A6678; --line:#DCE2EA;
+  --accent:#FF5A1F; --accent-ink:#FFFFFF; --accent-soft:#FFE6DC;
+  --sky:#3D6BFF; --ok:#0E9F6E; --ok-soft:#DBF4EA; --hold:#D98E00; --hold-soft:#FDF0D3; --free:#C9D2DE;
+  --shadow:0 1px 2px rgba(13,24,40,.05),0 6px 20px -14px rgba(13,24,40,.2);
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A111C; --bg2:#111B2A; --surface:#131E2E; --ink:#EAF0F7; --muted:#93A1B5; --line:#223146;
+  --accent:#FF6B33; --accent-ink:#1A0A03; --accent-soft:#3A1C10;
+  --sky:#7FA2FF; --ok:#34D399; --ok-soft:#0F3328; --hold:#FBBF24; --hold-soft:#3A2C0C; --free:#33445C;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A111C; --bg2:#111B2A; --surface:#131E2E; --ink:#EAF0F7; --muted:#93A1B5; --line:#223146;
+  --accent:#FF6B33; --accent-ink:#1A0A03; --accent-soft:#3A1C10;
+  --sky:#7FA2FF; --ok:#34D399; --ok-soft:#0F3328; --hold:#FBBF24; --hold-soft:#3A2C0C; --free:#33445C;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.7); color-scheme:dark}
+/* De kaart is bewust altijd donker: koplampen in de nacht van 3 juni */
+.night{--bg:#070C16; --bg2:#0E1626; --surface:#0E1626; --ink:#F2F5FA; --muted:#8C9AB0; --line:#1D2A40;
+  --accent:#FF6B33; --accent-ink:#1A0A03; --accent-soft:#3A1C10; --sky:#5B86FF; --ok:#34D399; --ok-soft:#0F3328; --hold:#FBBF24; --hold-soft:#3A2C0C; --free:#2B3A52;
+  --road:#18233A; color:var(--ink); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.04;letter-spacing:-.025em;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800}
+h2{font-size:clamp(1.6rem,3.4vw,2.5rem)}
+h3{font-size:1.12rem}
+p{margin:0}
+a{color:inherit}
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font:700 .95rem/1 var(--body);padding:.95em 1.35em;border-radius:999px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-dark{background:var(--ink);color:var(--bg)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-sm{padding:.6em 1em;font-size:.85rem}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.pill{display:inline-flex;align-items:center;gap:6px;font:700 .74rem/1 var(--body);padding:.5em .8em;border-radius:999px;background:var(--bg2);color:var(--muted);white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.hold{background:var(--hold-soft);color:var(--hold)} .pill.acc{background:var(--accent-soft);color:var(--accent)}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block}
+.dot.vrij{background:var(--free)} .dot.gereserveerd{background:var(--hold)} .dot.geadopteerd{background:var(--ok)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.ex{font:500 .64rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--hold);border:1px solid currentColor;border-radius:4px;padding:.3em .45em;vertical-align:middle;white-space:nowrap}
+
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:25;background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
+.brand svg{width:30px;height:30px}
+.nav-links{display:flex;gap:4px;margin-left:auto;align-items:center}
+.nav-links a{text-decoration:none;font-weight:700;font-size:.92rem;padding:.55em .85em;border-radius:999px;color:var(--muted)}
+.nav-links a[aria-current="page"],.nav-links a:hover{color:var(--ink);background:var(--bg2)}
+.nav-links .btn{color:var(--accent-ink);margin-left:6px}
+.demo{background:var(--ink);color:var(--bg);font:500 .78rem/1.4 var(--mono);text-align:center;padding-block:.5em}
+.view{padding-bottom:80px}
+section.block{padding-block:56px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.bar{height:8px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sky),var(--accent));border-radius:99px}
+
+/* Kaart */
+.mapwrap{position:relative;border-radius:18px;overflow:hidden;background:radial-gradient(800px 500px at 80% 0%,rgba(91,134,255,.18),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(255,107,51,.14),transparent 60%),var(--bg);border:1px solid var(--line);box-shadow:0 20px 50px -30px rgba(7,12,22,.55)}
+.mapwrap svg.map{display:block;width:100%;height:auto}
+.mapwrap .hud{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none}
+.hud span{background:rgba(14,22,38,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:.45em .8em;font:600 .78rem var(--mono);color:var(--ink)}
+.hud span b{color:var(--accent);font-weight:700}
+.tagline{position:absolute;left:14px;top:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:calc(100% - 28px)}
+.livechip{display:inline-flex;align-items:center;gap:8px;background:rgba(14,22,38,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:.45em .85em;font:700 .78rem var(--body)}
+.livechip i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent);animation:ping 1.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,107,51,.7)}100%{box-shadow:0 0 0 10px rgba(255,107,51,0)}}
+.near{background:rgba(255,107,51,.16);border-color:rgba(255,107,51,.5);color:#FFD9C9}
+.moment{position:absolute;left:50%;top:50%;width:min(86%,440px);transform:translate(-50%,-50%) scale(.92);opacity:0;pointer-events:none;
+  background:linear-gradient(160deg,rgba(255,107,51,.22),rgba(14,22,38,.94) 55%);border:1px solid rgba(255,107,51,.6);border-radius:24px;padding:22px 24px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 30px 80px -20px rgba(255,90,31,.55);transition:opacity .25s ease,transform .35s cubic-bezier(.2,1.4,.4,1)}
+.moment.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.moment .now{display:inline-flex;align-items:center;gap:8px;font:800 .74rem var(--mono);letter-spacing:.14em;color:var(--accent)}
+.moment .now i{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:ping 1s infinite}
+.moment .mb{font:900 clamp(2.4rem,7vw,4rem)/1 var(--display);letter-spacing:-.04em;margin-top:8px;color:#fff}
+.moment .ms{font:800 clamp(1.1rem,3vw,1.5rem)/1.15 var(--display);color:var(--accent);margin-top:6px;overflow-wrap:anywhere}
+.moment .mt{font-size:.92rem;color:var(--muted);margin-top:10px}
+.burst{fill:none;stroke:var(--accent);stroke-width:3;transform-box:fill-box;transform-origin:center;animation:burst 1.4s ease-out forwards}
+.burst.b2{animation-delay:.25s} .burst.b3{animation-delay:.5s}
+@keyframes burst{from{transform:scale(1);opacity:1}to{transform:scale(5);opacity:0}}
+.pm{transition:transform .2s ease}
+.pm.flash circle.mk{stroke:var(--accent);stroke-width:4}
+.mk-label{font:800 17px var(--body)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+/* Platform-hero */
+.phero{padding-block:48px 24px;background:radial-gradient(1100px 500px at 90% -10%,color-mix(in srgb,var(--sky) 16%,transparent),transparent 60%),radial-gradient(900px 400px at -10% 110%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.lede{font-size:1.12rem;max-width:34em;margin-top:18px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}
+.kpi{padding:18px 20px}
+.kpi b{display:block;font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:700;letter-spacing:-.02em}
+.kpi span{font-size:.85rem;color:var(--muted)}
+.how{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.how .card{padding:28px;display:grid;gap:16px;align-content:start}
+.how ol{margin:0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:h}
+.how li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.how li::before{counter-increment:h;content:counter(h);width:30px;height:30px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;font:700 .85rem var(--mono)}
+.how .card.dark{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.how .card.dark .muted{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.how .card.dark li::before{background:color-mix(in srgb,var(--bg) 14%,transparent)}
+.riders{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:28px}
+.rider{padding:20px;display:grid;gap:14px;text-decoration:none;transition:transform .15s ease}
+.rider:hover{transform:translateY(-2px)}
+.rider-top{display:flex;gap:12px;align-items:center}
+.avatar{width:52px;height:52px;border-radius:50%;flex:none;background:var(--bg2);display:grid;place-items:center;font:700 1rem var(--display);color:var(--muted);overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.mini-bends{display:grid;grid-template-columns:repeat(21,1fr);gap:3px}
+.mini-bends i{height:8px;border-radius:2px;background:var(--free)}
+.mini-bends i.geadopteerd{background:var(--ok)} .mini-bends i.gereserveerd{background:var(--hold)}
+
+/* Deelnemer */
+.rhero{padding-block:40px 24px}
+.who{display:flex;gap:14px;align-items:center}
+.who .face{width:76px;height:76px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 0 0 4px var(--surface),0 0 0 6px var(--accent)}
+.who .face img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.raise{padding:20px;display:grid;gap:12px;margin-top:22px}
+.raise .big{font-family:var(--display);font-size:2rem;font-weight:800;letter-spacing:-.03em}
+.raise .bar{height:12px}
+.countdown{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.countdown div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;min-width:78px;text-align:center}
+.countdown b{display:block;font:700 1.3rem var(--display)}
+.countdown span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.board{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;margin-top:24px;align-items:start}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{position:relative;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px;cursor:pointer;display:grid;gap:4px;font:inherit;color:inherit;align-content:start;transition:border-color .15s ease,transform .15s ease;min-width:0}
+.tile:hover{border-color:var(--ink);transform:translateY(-2px)}
+.tile .n{font:800 1.5rem/1 var(--display);letter-spacing:-.03em}
+.tile .meta{font:500 .7rem var(--mono);color:var(--muted)}
+.tile .whoo{font-weight:800;font-size:.84rem;line-height:1.25;overflow-wrap:anywhere}
+.tile.geadopteerd{background:linear-gradient(160deg,var(--ok-soft),var(--surface) 70%)}
+.tile.gereserveerd{background:linear-gradient(160deg,var(--hold-soft),var(--surface) 70%)}
+.tile .st{position:absolute;top:10px;right:10px}
+.tile .price{color:var(--accent)}
+.journey{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.jcol{padding:24px;display:grid;gap:14px;align-content:start}
+.jcol .pill{justify-self:start}
+.jcol ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.jcol li{display:grid;gap:2px;padding-left:16px;border-left:2px solid var(--line)}
+.jcol li span{color:var(--muted);font-size:.92rem}
+.jcol.hot{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.jcol.hot li{border-left-color:var(--accent)}
+.jcol.hot li span{color:color-mix(in srgb,var(--bg) 72%,transparent)}
+.gets{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:24px}
+.get{padding:20px;display:grid;gap:8px;align-content:start}
+.get .ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.get .ic svg{width:22px;height:22px}
+.get b{font-family:var(--display);font-size:1rem;font-weight:700}
+.get span{color:var(--muted);font-size:.93rem}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+.story{padding:30px;display:grid;gap:14px;font-size:1.05rem}
+.story .quote{font-family:var(--display);font-size:1.35rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.sponsors{padding:24px;display:grid;gap:12px}
+.sponsor-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.sponsor-row:last-child{border-bottom:0}
+.logo-chip{width:44px;height:44px;border-radius:12px;background:var(--bg2);display:grid;place-items:center;font:800 .8rem var(--display);flex:none;overflow:hidden}
+.logo-chip img{width:78%;height:78%;object-fit:contain}
+.logo-chip.sm{width:26px;height:26px;border-radius:8px;font-size:.6rem}
+.logo-chip.lg{width:52px;height:52px;border-radius:14px;background:#fff}
+.badge-nl{font:800 .62rem/1 var(--mono);letter-spacing:.06em;padding:.3em .45em;border-radius:4px;background:#FF7A1A;color:#fff;justify-self:start}
+.fact{background:var(--bg);border-radius:16px;padding:14px 16px;display:grid;gap:6px}
+.fact .bord{font:800 1rem var(--display)}
+.typeseg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.typeseg label{position:relative;border:1.5px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;display:grid;gap:2px;font-weight:800}
+.typeseg label span{font-weight:600;color:var(--muted);font-size:.85rem}
+.typeseg input{position:absolute;opacity:0;pointer-events:none}
+.typeseg label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.typeseg label:has(input:focus-visible){outline:3px solid var(--sky);outline-offset:2px}
+.facts-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.facts-strip .card{padding:20px;display:grid;gap:6px;align-content:start}
+.facts-strip b{font:800 1.6rem var(--display);letter-spacing:-.03em}
+@media (max-width:980px){.facts-strip{grid-template-columns:1fr}}
+
+/* Simulator */
+.sim-grid{display:grid;grid-template-columns:1fr 340px;gap:16px;margin-top:24px;align-items:start}
+.sim-stage{padding:16px;display:grid;gap:14px;min-width:0}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;background:var(--bg2);border-radius:999px;padding:3px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--muted);font:700 .82rem var(--body);padding:.5em .85em;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.clock{font:500 1.5rem var(--mono);letter-spacing:-.02em;margin-left:auto}
+.sim-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sim-stats div{background:var(--bg);border-radius:14px;padding:12px}
+.sim-stats b{display:block;font:700 1.2rem var(--display)}
+.sim-stats span{font-size:.78rem;color:var(--muted)}
+.climbs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.climbs i{height:32px;border-radius:10px;background:var(--bg2);display:grid;place-items:center;font:700 .9rem var(--display);font-style:normal;color:var(--muted)}
+.climbs i.done{background:var(--ok);color:#fff} .climbs i.now{background:var(--accent);color:var(--accent-ink)}
+.profile svg{display:block;width:100%;height:auto}
+.feed{padding:18px;display:grid;gap:10px;max-height:640px;overflow:auto}
+.feed ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.feed li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--bg);font-size:.88rem;animation:pop .35s ease}
+.feed li.sp{background:var(--ok-soft)}
+.feed li b{font-family:var(--display);font-size:.95rem}
+.feed li time{font:500 .8rem var(--mono);color:var(--muted)}
+@keyframes pop{from{transform:translateY(-6px);opacity:.3}to{transform:none;opacity:1}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:700;font-size:.9rem;z-index:40;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.rlegend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem}
+.rlegend span{display:inline-flex;align-items:center;gap:6px}
+
+/* Kantoorscherm */
+.tv{background:var(--bg);min-height:100%;padding-block:28px 48px}
+.tv .wrap{display:grid;gap:20px}
+.tv-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.tv-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:start}
+.tv-side{display:grid;gap:16px}
+.tv-eta{font:900 clamp(3.4rem,10vw,7.5rem)/1 var(--display);letter-spacing:-.05em;color:var(--accent);font-variant-numeric:tabular-nums}
+.tv-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;display:grid;gap:12px;min-width:0}
+.tv-pass{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tv-pass div{background:var(--bg2);border-radius:14px;padding:12px;font:500 .85rem var(--mono);color:var(--muted)}
+.tv-pass div b{display:block;font:700 1.3rem var(--display);color:var(--ink)}
+.tv-pass div.done{background:var(--ok-soft)} .tv-pass div.done b{color:var(--ok)}
+.tv .moment{width:min(80%,620px)}
+
+/* Aanmelden */
+.wizard{max-width:760px;margin:0 auto;padding:30px;display:grid;gap:22px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.steps i{height:6px;border-radius:99px;background:var(--bg2)}
+.steps i.on{background:var(--accent)}
+.form{display:grid;gap:16px}
+.form label{display:grid;gap:6px;font-weight:700;font-size:.92rem}
+.form input,.form select{font:500 1rem var(--body);padding:.8em .95em;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:100%}
+.form small{font-weight:500;color:var(--muted)}
+.choice{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.choice label{border:1.5px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;display:flex;gap:10px;align-items:start;font-weight:700}
+.choice input{width:auto;margin-top:3px;accent-color:var(--accent)}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.code{font:700 1.6rem var(--mono);letter-spacing:.1em;background:var(--bg);border:1px dashed var(--line);border-radius:14px;padding:16px;text-align:center}
+.wnav{display:flex;justify-content:space-between;gap:10px}
+.member{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);text-decoration:none}
+.member:last-child{border-bottom:0}
+
+/* Bochtpaneel */
+.scrim{position:fixed;inset:0;background:rgba(5,10,18,.5);z-index:44;backdrop-filter:blur(2px)}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--surface);z-index:45;overflow-y:auto;display:grid;gap:18px;align-content:start;
+  padding:calc(24px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 24px;box-shadow:-30px 0 80px rgba(0,0,0,.25)}
+.sheet-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.sheet-head h3{font-size:2.8rem;font-weight:800}
+.close{background:var(--bg2);border:0;color:var(--ink);border-radius:50%;width:40px;height:40px;font-size:1.2rem;cursor:pointer;flex:none}
+.facts3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.facts3 div{background:var(--bg);border-radius:12px;padding:10px}
+.facts3 b{display:block;font:700 1rem var(--display)}
+.facts3 span{font-size:.75rem;color:var(--muted)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slots div{border:1px dashed var(--line);border-radius:12px;padding:10px;font:500 .8rem/1.3 var(--mono);color:var(--muted)}
+.slots div b{display:block;font:700 .9rem var(--display);color:var(--ink)}
+.instr{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:i}
+.instr li{display:grid;grid-template-columns:30px 1fr;gap:10px}
+.instr li::before{counter-increment:i;content:counter(i);width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 .8rem var(--mono)}
+.copy{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.copy code{font-family:var(--mono);background:var(--accent-soft);color:var(--accent);padding:.35em .6em;border-radius:8px;font-weight:700}
+.share{border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.share svg{display:block;width:100%;height:auto}
+.guess{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.guess input{font:600 1rem var(--mono);padding:.6em .8em;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:130px}
+
+.kit{padding:26px;display:grid;gap:20px;background:var(--bg);border-color:var(--line)}
+.kit-grid{display:grid;grid-template-columns:.8fr 1.1fr 1.1fr;gap:14px}
+.kit-cell{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.kit textarea{font:500 .92rem/1.5 var(--body);padding:.8em .9em;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:100%;resize:vertical}
+.kit .form input,.kit .form select{background:var(--bg)}
+.qr{background:#fff;border-radius:12px;padding:8px;justify-self:start;min-height:128px;min-width:128px}
+.qr img,.qr canvas{display:block}
+.mates{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.mate{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px;text-decoration:none}
+.mate:hover{border-color:var(--ink)}
+.teambocht{padding:26px;display:grid;gap:18px;background:var(--bg)}
+.tb-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tb-row select{font:700 1rem var(--body);padding:.7em .9em;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink)}
+.tb-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tb-sum div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.tb-sum b{display:block;font:800 1.6rem var(--display);color:var(--accent)}
+.tb-sum span{font-size:.85rem;color:var(--muted)}
+.tb-list{list-style:none;margin:14px 0;padding:0;display:grid;gap:8px}
+.tb-list li{display:flex;gap:12px;align-items:center;font-size:.92rem}
+.tb-list .avatar{width:36px;height:36px;font-size:.75rem}
+@media (max-width:980px){.kit-grid,.tb-sum{grid-template-columns:1fr}}
+.fb-btn{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:35;border:0;cursor:pointer;
+  background:var(--accent);color:var(--accent-ink);font:800 .95rem var(--body);padding:.95em 1.3em;border-radius:999px;box-shadow:0 14px 36px -10px var(--accent)}
+.fb-q{display:grid;gap:8px}
+.fb-q > b{font-size:.95rem}
+.fb-q textarea{font:500 .95rem/1.5 var(--body);padding:.75em .85em;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);width:100%;resize:vertical}
+.team-hero{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:center}
+.team-photo{border-radius:50%;overflow:hidden;aspect-ratio:1;box-shadow:0 0 0 6px var(--surface),0 0 0 8px var(--accent);max-width:260px}
+.team-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.team-tag{display:flex;gap:10px;align-items:center}
+.flag{width:42px;height:auto;border-radius:3px;box-shadow:0 0 0 1px var(--line);flex:none}
+.teamcard{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;padding:18px;text-decoration:none}
+.teamcard .tc-photo{width:96px;height:96px;border-radius:50%;object-fit:cover}
+.tc-body{display:grid;gap:6px;min-width:0}
+.tc-body b{font:800 1.1rem var(--display)}
+@media (max-width:760px){.team-hero{grid-template-columns:1fr}.team-photo{max-width:200px}}
+.team-intro{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:center;margin-top:44px}
+.ti-text{min-width:0}
+.ti-steps li > div{min-width:0}
+.ti-steps{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:t}
+.ti-steps li{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start}
+.ti-steps li::before{counter-increment:t;content:counter(t);width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 .8rem var(--mono)}
+@media (max-width:980px){.team-intro{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+
+@media (max-width:980px){
+  .hero-grid,.split,.sim-grid,.how,.board,.tv-grid,.journey{grid-template-columns:1fr}
+  .kpis,.sim-stats{grid-template-columns:repeat(2,1fr)}
+  .nav-links a:not(.btn):not(.keep){display:none}
+}
+@media (max-width:560px){
+  .sheet{top:auto;max-height:90vh;width:100%;border-radius:22px 22px 0 0;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .wizard{padding:22px}
+  .nav-links .btn{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<div class="demo">Ontwerp. Alles met het label <span style="color:var(--hold)">voorbeeld</span> is verzonnen. Het opgehaalde bedrag van Maurice is de echte stand van 23 oktober 2026.</div>
+
+<nav class="nav" aria-label="Hoofdmenu">
+  <div class="wrap">
+    <a class="brand" href="#dpmm" data-go="dpmm">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--ink)"/><path d="M8 26 L14 22 L9 18 L20 14 L13 10 L24 6" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      21 bochten
+    </a>
+    <div class="nav-links">
+      <a href="#dpmm" data-go="dpmm" class="keep">Ons team</a>
+      <a href="#maurice" data-go="maurice">Rijders</a>
+      <a href="#home" data-go="home">Alle deelnemers</a>
+      <a href="#live" data-go="live" class="keep">Live</a>
+      <a href="#tv" data-go="tv">Kantoorscherm</a>
+      <a class="btn btn-primary btn-sm" href="#aanmelden" data-go="aanmelden">Start je pagina</a>
+    </div>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <span>Elke donatie gaat via de officiële actiepagina van de deelnemer naar KWF. 21 bochten neemt zelf geen geld aan.</span>
+    <span>Route en hoogtes: © OpenStreetMap-bijdragers en SRTM · Vlag van Berghem: Wikimedia Commons · Gemaakt door Elusive Innovations</span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-title"></aside>
+<div class="toast" id="toast" hidden></div>
+<button class="fb-btn" type="button" id="fb-open">Geef feedback</button>
+
+<script>
+const ROUTE=[[45.05939,6.03768,0,723],[45.05965,6.03776,30,722],[45.05992,6.03776,60,722],[45.06019,6.03771,90,721],[45.06046,6.03766,120,720],[45.06072,6.0376,150,719],[45.06099,6.03753,180,718],[45.06125,6.03747,210,718],[45.06152,6.03739,240,717],[45.06178,6.03728,270,718],[45.06203,6.03714,300,718],[45.06228,6.037,330,718],[45.06255,6.03698,360,719],[45.06281,6.03707,390,719],[45.06303,6.03729,420,720],[45.06322,6.03755,450,720],[45.06341,6.03782,480,720],[45.0636,6.03809,510,721],[45.06379,6.03836,540,722],[45.06398,6.03863,570,723],[45.06417,6.0389,600,724],[45.06436,6.03917,630,724],[45.06456,6.03944,660,725],[45.06475,6.0397,690,726],[45.06495,6.03996,720,726],[45.06519,6.04011,750,728],[45.06545,6.04005,780,731],[45.06571,6.03995,810,734],[45.06597,6.03984,840,736],[45.06623,6.03974,870,738],[45.06649,6.03963,900,741],[45.06676,6.03957,930,744],[45.06703,6.03953,960,746],[45.0673,6.03949,990,750],[45.06756,6.03945,1020,754],[45.06783,6.0394,1050,758],[45.06809,6.03929,1080,762],[45.06835,6.03925,1110,766],[45.06862,6.0393,1140,770],[45.06889,6.03926,1170,775],[45.06915,6.03919,1200,779],[45.06941,6.03907,1230,781],[45.06966,6.03893,1260,783],[45.06991,6.0388,1290,785],[45.07017,6.03871,1320,787],[45.07044,6.0387,1350,794],[45.07071,6.03874,1380,800],[45.07097,6.03882,1410,807],[45.07124,6.0389,1440,814],[45.0715,6.03897,1470,819],[45.07177,6.03899,1500,824],[45.07182,6.03927,1530,829],[45.07156,6.03924,1560,834],[45.07129,6.03917,1590,832],[45.07102,6.03912,1620,830],[45.07076,6.0392,1650,829],[45.07051,6.03932,1680,827],[45.07027,6.0395,1710,830],[45.07006,6.03974,1740,834],[45.06986,6.04,1770,837],[45.06964,6.04022,1800,840],[45.06945,6.0405,1830,843],[45.06928,6.04079,1860,846],[45.06903,6.0409,1890,849],[45.06876,6.04096,1920,852],[45.06849,6.04102,1950,855],[45.06823,6.04108,1980,858],[45.06797,6.04119,2010,861],[45.06772,6.04132,2040,864],[45.06746,6.04146,2070,867],[45.06722,6.04161,2100,870],[45.06697,6.04177,2130,873],[45.06672,6.04191,2160,876],[45.06647,6.04204,2190,878],[45.0665,6.04226,2220,880],[45.06675,6.04212,2250,882],[45.06701,6.04199,2280,884],[45.06726,6.04187,2310,889],[45.06752,6.04176,2340,894],[45.06779,6.04179,2370,899],[45.06801,6.04196,2400,904],[45.06782,6.04203,2430,904],[45.06757,6.04191,2460,904],[45.06732,6.04206,2490,903],[45.06711,6.04231,2520,903],[45.0669,6.04255,2550,901],[45.06667,6.04273,2580,898],[45.06641,6.04286,2610,896],[45.06616,6.04299,2640,894],[45.06594,6.04317,2670,904],[45.06613,6.04329,2700,914],[45.06639,6.04319,2730,925],[45.06666,6.04313,2760,935],[45.06691,6.04301,2790,937],[45.06715,6.04284,2820,940],[45.06741,6.04282,2850,942],[45.06768,6.04279,2880,944],[45.06794,6.04267,2910,950],[45.0682,6.04261,2940,957],[45.06847,6.04263,2970,964],[45.06874,6.04265,3000,970],[45.06888,6.04285,3030,968],[45.06863,6.04285,3060,966],[45.06836,6.0428,3090,965],[45.06811,6.04294,3120,963],[45.06788,6.04314,3150,966],[45.06765,6.04333,3180,968],[45.06741,6.04352,3210,970],[45.0672,6.04374,3240,973],[45.06728,6.04406,3270,975],[45.0675,6.04429,3300,978],[45.06772,6.0445,3330,980],[45.06797,6.04464,3360,982],[45.06824,6.04473,3390,985],[45.0685,6.04479,3420,988],[45.06877,6.04487,3450,990],[45.06898,6.04509,3480,993],[45.06917,6.04536,3510,994],[45.0694,6.04555,3540,996],[45.06965,6.04571,3570,998],[45.06991,6.04581,3600,999],[45.07013,6.04602,3630,1002],[45.0703,6.04632,3660,1006],[45.07046,6.04662,3690,1009],[45.07064,6.04691,3720,1012],[45.07086,6.04712,3750,1015],[45.07109,6.04733,3780,1018],[45.07131,6.04754,3810,1021],[45.07153,6.04776,3840,1024],[45.07174,6.04801,3870,1026],[45.07196,6.04812,3900,1028],[45.07186,6.04784,3930,1029],[45.07164,6.04763,3960,1031],[45.07144,6.04737,3990,1032],[45.07126,6.04709,4020,1034],[45.0711,6.04678,4050,1036],[45.07104,6.04641,4080,1037],[45.07105,6.04602,4110,1040],[45.07107,6.04564,4140,1044],[45.07109,6.04526,4170,1048],[45.07107,6.04488,4200,1051],[45.07094,6.04455,4230,1053],[45.07095,6.04424,4260,1054],[45.07114,6.04448,4290,1056],[45.07128,6.04481,4320,1058],[45.07136,6.04517,4350,1059],[45.07143,6.04554,4380,1060],[45.07149,6.04591,4410,1062],[45.07158,6.04627,4440,1063],[45.07174,6.04658,4470,1068],[45.07194,6.04683,4500,1073],[45.07216,6.04704,4530,1078],[45.07239,6.04723,4560,1083],[45.07263,6.04743,4590,1085],[45.07286,6.04762,4620,1088],[45.07312,6.0477,4650,1090],[45.07339,6.04774,4680,1092],[45.07357,6.04801,4710,1092],[45.07365,6.04837,4740,1092],[45.07367,6.04875,4770,1093],[45.0735,6.04904,4800,1093],[45.07334,6.04934,4830,1098],[45.07326,6.0497,4860,1104],[45.07311,6.05001,4890,1109],[45.07293,6.0503,4920,1114],[45.07275,6.05058,4950,1115],[45.07257,6.05087,4980,1116],[45.07244,6.05118,5010,1117],[45.07264,6.05113,5040,1118],[45.07281,6.05084,5070,1121],[45.07304,6.05064,5100,1124],[45.07327,6.05045,5130,1127],[45.07351,6.05026,5160,1130],[45.07373,6.05004,5190,1133],[45.0739,6.04975,5220,1136],[45.07414,6.0496,5250,1139],[45.07441,6.04957,5280,1142],[45.07467,6.04948,5310,1146],[45.07484,6.04919,5340,1150],[45.07496,6.04885,5370,1153],[45.07501,6.04848,5400,1157],[45.07491,6.04813,5430,1158],[45.07477,6.0478,5460,1160],[45.0749,6.04763,5490,1162],[45.07498,6.04799,5520,1163],[45.07511,6.04833,5550,1166],[45.07523,6.04867,5580,1169],[45.07525,6.04905,5610,1172],[45.07524,6.04943,5640,1175],[45.07518,6.0498,5670,1177],[45.07498,6.05005,5700,1178],[45.07472,6.05015,5730,1180],[45.07447,6.05028,5760,1182],[45.07432,6.05059,5790,1184],[45.07415,6.05088,5820,1187],[45.07396,6.05115,5850,1190],[45.07376,6.05141,5880,1192],[45.07357,6.05168,5910,1194],[45.07334,6.05189,5940,1195],[45.07322,6.05215,5970,1196],[45.07345,6.05201,6000,1198],[45.07366,6.05177,6030,1199],[45.07387,6.05154,6060,1200],[45.0741,6.05133,6090,1202],[45.07432,6.05112,6120,1203],[45.07456,6.05093,6150,1209],[45.07481,6.05081,6180,1215],[45.07508,6.05073,6210,1221],[45.07534,6.05066,6240,1227],[45.07558,6.05049,6270,1226],[45.07582,6.05029,6300,1226],[45.07596,6.04998,6330,1226],[45.07607,6.04963,6360,1225],[45.0762,6.0493,6390,1228],[45.07635,6.04898,6420,1230],[45.07637,6.0486,6450,1232],[45.0763,6.04824,6480,1235],[45.07633,6.04787,6510,1238],[45.07644,6.04752,6540,1242],[45.07661,6.04729,6570,1246],[45.0766,6.04761,6600,1249],[45.07649,6.04795,6630,1251],[45.07656,6.04832,6660,1252],[45.0767,6.04864,6690,1254],[45.07673,6.04902,6720,1256],[45.07671,6.0494,6750,1260],[45.07663,6.04976,6780,1264],[45.07653,6.05011,6810,1268],[45.0765,6.05049,6840,1272],[45.07642,6.05085,6870,1275],[45.07626,6.05116,6900,1278],[45.07608,6.05144,6930,1281],[45.07586,6.05165,6960,1284],[45.07562,6.05183,6990,1286],[45.07537,6.05199,7020,1287],[45.07512,6.05214,7050,1288],[45.07486,6.05221,7080,1290],[45.07482,6.0525,7110,1292],[45.07505,6.05236,7140,1293],[45.07529,6.0522,7170,1294],[45.07555,6.05209,7200,1296],[45.07581,6.05197,7230,1300],[45.07608,6.05192,7260,1304],[45.07634,6.05185,7290,1309],[45.0766,6.05176,7320,1313],[45.07684,6.0516,7350,1316],[45.07703,6.05133,7380,1318],[45.07719,6.05101,7410,1321],[45.07735,6.05071,7440,1324],[45.07753,6.05043,7470,1328],[45.07771,6.05014,7500,1332],[45.07787,6.04984,7530,1337],[45.07803,6.04953,7560,1341],[45.07802,6.04917,7590,1342],[45.07794,6.04881,7620,1342],[45.07794,6.04843,7650,1343],[45.07785,6.04808,7680,1344],[45.0779,6.0478,7710,1346],[45.07801,6.04812,7740,1349],[45.0781,6.04848,7770,1352],[45.07823,6.04882,7800,1354],[45.07838,6.04913,7830,1358],[45.07844,6.04949,7860,1361],[45.07842,6.04987,7890,1364],[45.07836,6.05024,7920,1368],[45.07824,6.05059,7950,1370],[45.07812,6.05093,7980,1371],[45.07799,6.05127,8010,1372],[45.07787,6.05161,8040,1374],[45.07777,6.05196,8070,1378],[45.07768,6.05232,8100,1382],[45.07752,6.05263,8130,1386],[45.07733,6.0529,8160,1390],[45.07711,6.05312,8190,1390],[45.07711,6.05346,8220,1390],[45.07736,6.05357,8250,1390],[45.07763,6.05363,8280,1390],[45.07786,6.05381,8310,1396],[45.07809,6.05401,8340,1402],[45.07834,6.05418,8370,1407],[45.07859,6.05432,8400,1413],[45.07884,6.05447,8430,1414],[45.07909,6.05461,8460,1416],[45.07935,6.0547,8490,1418],[45.07961,6.05463,8520,1419],[45.07988,6.05466,8550,1422],[45.08014,6.05472,8580,1424],[45.08041,6.0548,8610,1426],[45.08066,6.05492,8640,1429],[45.08081,6.05522,8670,1430],[45.08072,6.05555,8700,1432],[45.08046,6.05566,8730,1434],[45.08022,6.05584,8760,1435],[45.08011,6.05618,8790,1438],[45.08006,6.05656,8820,1440],[45.0801,6.05693,8850,1443],[45.08023,6.05726,8880,1446],[45.08038,6.05758,8910,1446],[45.0805,6.05792,8940,1447],[45.08063,6.05826,8970,1448],[45.08076,6.05859,9000,1448],[45.08094,6.05887,9030,1452],[45.08111,6.05916,9060,1456],[45.08122,6.05951,9090,1460],[45.08136,6.05984,9120,1464],[45.08153,6.06013,9150,1467],[45.08164,6.06048,9180,1470],[45.08174,6.06084,9210,1472],[45.08184,6.06119,9240,1475],[45.08193,6.06155,9270,1479],[45.08203,6.06191,9300,1482],[45.08215,6.06225,9330,1486],[45.08235,6.06219,9360,1490],[45.0822,6.06187,9390,1490],[45.08209,6.06153,9420,1491],[45.0821,6.06115,9450,1492],[45.08213,6.06077,9480,1492],[45.08216,6.06039,9510,1494],[45.08218,6.06001,9540,1496],[45.0822,6.05963,9570,1497],[45.08221,6.05925,9600,1499],[45.08222,6.05887,9630,1500],[45.08223,6.05849,9660,1502],[45.08225,6.05811,9690,1503],[45.08238,6.05778,9720,1504],[45.08262,6.05761,9750,1506],[45.08289,6.05759,9780,1509],[45.08316,6.05758,9810,1512],[45.08342,6.05752,9840,1514],[45.08368,6.05753,9870,1516],[45.08354,6.05779,9900,1517],[45.08331,6.058,9930,1518],[45.08315,6.05831,9960,1520],[45.08305,6.05866,9990,1523],[45.08301,6.05904,10020,1526],[45.08301,6.05942,10050,1530],[45.08304,6.0598,10080,1533],[45.08309,6.06018,10110,1537],[45.08316,6.06054,10140,1540],[45.08323,6.06091,10170,1544],[45.08331,6.06128,10200,1548],[45.08339,6.06164,10230,1550],[45.08347,6.06201,10260,1552],[45.08349,6.06239,10290,1553],[45.08362,6.06262,10320,1555],[45.08362,6.06226,10350,1557],[45.08359,6.06188,10380,1559],[45.0836,6.0615,10410,1561],[45.08371,6.06116,10440,1563],[45.08385,6.06083,10470,1566],[45.08401,6.06052,10500,1568],[45.08423,6.06031,10530,1571],[45.08449,6.0602,10560,1574],[45.08475,6.06012,10590,1578],[45.08501,6.06,10620,1581],[45.08526,6.05987,10650,1584],[45.08551,6.05971,10680,1588],[45.08573,6.0595,10710,1590],[45.08595,6.05928,10740,1591],[45.08617,6.05905,10770,1592],[45.08638,6.05882,10800,1594],[45.08661,6.05861,10830,1598],[45.08685,6.05842,10860,1601],[45.08709,6.05825,10890,1604],[45.08733,6.0581,10920,1608],[45.08757,6.05792,10950,1611],[45.08778,6.05769,10980,1614],[45.08796,6.05741,11010,1617],[45.08814,6.05711,11040,1620],[45.08829,6.0568,11070,1623],[45.08834,6.05644,11100,1626],[45.08821,6.05611,11130,1629],[45.08816,6.05582,11160,1632],[45.08839,6.05601,11190,1635],[45.08864,6.05618,11220,1638],[45.08888,6.05633,11250,1641],[45.08904,6.05663,11280,1644],[45.08911,6.057,11310,1646],[45.08915,6.05737,11340,1648],[45.08916,6.05776,11370,1651],[45.08916,6.05814,11400,1653],[45.08911,6.05851,11430,1655],[45.08904,6.05888,11460,1658],[45.08897,6.05925,11490,1660],[45.0889,6.05962,11520,1662],[45.08882,6.05999,11550,1665],[45.08869,6.06032,11580,1668],[45.08882,6.06039,11610,1671],[45.08903,6.06015,11640,1674],[45.08926,6.05994,11670,1678],[45.08948,6.05974,11700,1681],[45.0897,6.05951,11730,1684],[45.0899,6.05925,11760,1688],[45.09009,6.05898,11790,1690],[45.09028,6.0587,11820,1692],[45.09046,6.05843,11850,1694],[45.09065,6.05815,11880,1696],[45.09082,6.05785,11910,1700],[45.09098,6.05754,11940,1703],[45.09113,6.05723,11970,1706],[45.09127,6.0569,12000,1710],[45.09137,6.05655,12030,1711],[45.09141,6.05617,12060,1712],[45.09139,6.05579,12090,1714],[45.09136,6.05542,12120,1715],[45.09156,6.05548,12150,1717],[45.09158,6.05586,12180,1719],[45.09165,6.05623,12210,1721],[45.09174,6.05659,12240,1723],[45.09181,6.05696,12270,1725],[45.09184,6.05733,12300,1726],[45.09181,6.05772,12330,1728],[45.09179,6.0581,12360,1730],[45.09176,6.05848,12390,1734],[45.09174,6.05886,12420,1738],[45.09168,6.05923,12450,1741],[45.0916,6.0596,12480,1745],[45.09153,6.05996,12510,1748],[45.09146,6.06033,12540,1750],[45.09138,6.0607,12570,1753],[45.0913,6.06106,12600,1756],[45.09122,6.06141,12630,1759],[45.09109,6.06174,12660,1762],[45.09098,6.06209,12690,1765],[45.0909,6.06245,12720,1768],[45.09081,6.06282,12750,1771],[45.09075,6.06319,12780,1774],[45.09073,6.06357,12810,1776],[45.09065,6.06393,12840,1779],[45.09053,6.06427,12870,1780],[45.09048,6.06465,12900,1781],[45.09044,6.06502,12930,1782],[45.09049,6.06538,12960,1783],[45.09075,6.0655,12990,1784],[45.09097,6.06535,13020,1786],[45.09101,6.06497,13050,1787],[45.09104,6.0646,13080,1788],[45.09113,6.06424,13110,1789],[45.09127,6.06391,13140,1790],[45.09146,6.06365,13170,1791],[45.09165,6.06337,13200,1792],[45.0918,6.06306,13230,1794],[45.09195,6.06274,13260,1796],[45.09212,6.06244,13290,1798],[45.09232,6.06218,13320,1800],[45.09251,6.06192,13350,1801],[45.09264,6.06158,13380,1802],[45.09273,6.06122,13410,1804],[45.09279,6.06145,13440,1805],[45.09272,6.06182,13470,1806],[45.09269,6.0622,13500,1808],[45.09265,6.06258,13530,1809],[45.09262,6.06296,13560,1810],[45.0926,6.06334,13590,1812],[45.0926,6.06372,13620,1815],[45.09263,6.0641,13650,1818],[45.09267,6.06448,13680,1820],[45.09271,6.06486,13710,1822],[45.09278,6.06523,13740,1824],[45.09285,6.06559,13770,1825],[45.09292,6.06596,13800,1827],[45.09295,6.06634,13830,1828],[45.09298,6.06672,13860,1829],[45.09308,6.06707,13890,1830],[45.09324,6.06738,13920,1831],[45.09343,6.06765,13950,1834],[45.09364,6.06788,13980,1838],[45.09388,6.06808,14010,1841],[45.0941,6.06828,14040,1844],[45.09428,6.06857,14070,1844],[45.09448,6.06883,14100,1845],[45.0947,6.06904,14130,1845]];
+const BENDS_RAW=[[21,45.07169,6.03928,1545,836],[20,45.06792,6.04185,2385,893],[19,45.06603,6.04306,2655,887],[18,45.06874,6.04265,3000,970],[17,45.07184,6.04814,3885,1024],[16,45.07114,6.04448,4290,1062],[15,45.07248,6.05101,4995,1104],[14,45.07498,6.04799,5520,1163],[13,45.07345,6.05201,6000,1198],[12,45.07644,6.04752,6540,1240],[11,45.07486,6.05221,7080,1290],[10,45.07785,6.04808,7680,1344],[9,45.08081,6.05522,8670,1432],[8,45.08215,6.06225,9330,1477],[7,45.08355,6.05748,9855,1514],[6,45.08349,6.06239,10290,1549],[5,45.08851,6.05609,11205,1635],[4,45.08903,6.06015,11640,1674],[3,45.09136,6.05542,12120,1715],[2,45.09075,6.0655,12990,1789],[1,45.09275,6.06163,13455,1805]];
+
+/* ---------- Route ---------- */
+const KM = ROUTE[ROUTE.length-1][2]/1000;
+function interp(km){
+  const m = Math.max(0, Math.min(KM*1000, km*1000)); let lo=0, hi=ROUTE.length-1;
+  while(hi-lo>1){ const mid=(lo+hi)>>1; if(ROUTE[mid][2]<=m) lo=mid; else hi=mid; }
+  const a=ROUTE[lo], b=ROUTE[hi], t=(m-a[2])/Math.max(1,b[2]-a[2]);
+  return {lat:a[0]+(b[0]-a[0])*t, lon:a[1]+(b[1]-a[1])*t, alt:a[3]+(b[3]-a[3])*t};
+}
+const altAt = km => interp(km).alt;
+const ALT0 = ROUTE[0][3], ALT1 = Math.max(...ROUTE.map(p=>p[3]));
+const BENDS = BENDS_RAW.map(([n,lat,lon,m,e])=>({n,lat,lon,km:m/1000,alt:e}));
+// Projectie: lokale meters, gedraaid zodat de klim van linksonder naar rechtsboven loopt
+const LAT0 = ROUTE[0][0], LON0 = ROUTE[0][1], COS = Math.cos(LAT0*Math.PI/180);
+const toM = (lat,lon) => [(lon-LON0)*COS*111320, (lat-LAT0)*110540];
+const endM = toM(ROUTE[ROUTE.length-1][0], ROUTE[ROUTE.length-1][1]);
+// Kies de draaiing waarbij de route een kaart van ongeveer 16:9 vult
+const ROT = (()=>{ const pts=ROUTE.map(p=>toM(p[0],p[1])); let best=0, bd=1e9;
+  for(let d=-60; d<=60; d+=1){ const a=d*Math.PI/180 - Math.atan2(endM[1],endM[0]); const xs=pts.map(([x,y])=>x*Math.cos(a)-y*Math.sin(a)), ys=pts.map(([x,y])=>x*Math.sin(a)+y*Math.cos(a));
+    const asp=(Math.max(...xs)-Math.min(...xs))/(Math.max(...ys)-Math.min(...ys)); const sc=Math.abs(asp-1.8)+Math.abs(d)/200; if(sc<bd){bd=sc;best=a;} } return best; })();
+const rot = ([x,y]) => [x*Math.cos(ROT)-y*Math.sin(ROT), x*Math.sin(ROT)+y*Math.cos(ROT)];
+const RPTS = ROUTE.map(p=>rot(toM(p[0],p[1])));
+const MINX=Math.min(...RPTS.map(p=>p[0])), MAXX=Math.max(...RPTS.map(p=>p[0])), MINY=Math.min(...RPTS.map(p=>p[1])), MAXY=Math.max(...RPTS.map(p=>p[1]));
+const MW=1000, PADX=90, PADY=80, SC=(MW-2*PADX)/(MAXX-MINX), MH=Math.round((MAXY-MINY)*SC+2*PADY);
+const proj = (lat,lon) => { const [x,y]=rot(toM(lat,lon)); return [PADX+(x-MINX)*SC, PADY+(MAXY-y)*SC]; };
+const XY = km => { const p=interp(km); return proj(p.lat,p.lon); };
+const ROUTE_D = ROUTE.map((p,i)=>{const [x,y]=proj(p[0],p[1]); return (i?"L":"M")+x.toFixed(1)+","+y.toFixed(1)}).join("");
+const NORTH = (()=>{ const a=rot([0,1]); return Math.atan2(a[0],a[1])*180/Math.PI; })();
+
+/* Namen op de borden en feitjes: procyclinguk.com en cycling-passion.com, gecontroleerd op 23 okt 2026 */
+const BENDINFO = {
+  21:{bord:"Fausto Coppi · 1952",feit:"De eerste bocht, net buiten Bourg-d'Oisans. Hier begint meteen een van de steilste stukken. Coppi won in 1952 de allereerste bergaankomst op de Alpe d'Huez."},
+  20:{bord:"Joop Zoetemelk · 1976",nl:true,feit:"De eerste Nederlandse bocht. Het onderste deel naar La Garde is het zwaarst, met hellingen boven de 10 procent."},
+  19:{bord:"Hennie Kuiper · 1977",nl:true,feit:"Kuiper won hier in 1977, en een jaar later opnieuw. Nog steeds het zware onderste deel."},
+  18:{bord:"Hennie Kuiper · 1978",nl:true,feit:"Kuipers tweede zege op rij. Samen met bocht 19 de enige twee bochten achter elkaar voor dezelfde Nederlander."},
+  17:{bord:"Joaquim Agostinho · 1979",feit:"In 1979 eindigde de Tour twee dagen achter elkaar op de Alpe d'Huez. De Portugees Agostinho won de eerste."},
+  16:{bord:"Joop Zoetemelk · 1979",nl:true,feit:"De dag na Agostinho won Zoetemelk de tweede rit naar boven. Zijn tweede bocht op deze berg."},
+  15:{bord:"Peter Winnen · 1981",nl:true,feit:"Na het rustigere stuk bij La Garde wordt het hier weer steiler."},
+  14:{bord:"Beat Breu · 1982",feit:"Bij deze bocht staat een gedenkteken voor Joaquim Agostinho."},
+  13:{bord:"Peter Winnen · 1983",nl:true,feit:"Winnens tweede zege op de Alpe. De zesde Nederlandse bocht."},
+  12:{bord:"Luis Herrera · 1984",feit:"Herrera was de eerste Colombiaan die een Touretappe won. Tom Pidcock kreeg in 2022 zijn naam op hetzelfde bord."},
+  11:{bord:"Bernard Hinault · 1986",feit:"Hinault en LeMond kwamen hand in hand boven. Hinault kreeg de rit."},
+  10:{bord:"Federico Echave · 1987",feit:"Halverwege de bochten. Vanaf hier tel je af."},
+  9:{bord:"Steven Rooks · 1988",nl:true,feit:"Het begin van de laatste Nederlandse reeks op de berg."},
+  8:{bord:"Gert-Jan Theunisse · 1989",nl:true,feit:"De laatste Nederlandse winnaar op de Alpe d'Huez, en de bocht vlak voor de Dutch Corner."},
+  7:{bord:"Gianni Bugno · 1990",dc:true,feit:"De Dutch Corner. Bij de kerk van La Garde kleuren Nederlanders de weg oranje, met muziek en rook. De bekendste bocht van de berg."},
+  6:{bord:"Gianni Bugno · 1991",feit:"Bugno won twee jaar op rij boven, dus hij heeft twee bochten achter elkaar."},
+  5:{bord:"Andy Hampsten · 1992",feit:"Vanaf hier zie je het dorp boven al liggen."},
+  4:{bord:"Roberto Conti · 1994",feit:"Conti won uit de kopgroep. Pantani kwam te laat om hem nog te pakken."},
+  3:{bord:"Marco Pantani · 1995",feit:"Pantani staat bekend om de snelste klim naar boven ooit gemeten: 37 minuten en 35 seconden, in 1997."},
+  2:{bord:"Marco Pantani · 1997",feit:"Pantani's tweede bocht. Nog twee bochten tot het dorp."},
+  1:{bord:"Giuseppe Guerini · 1999",feit:"Guerini werd hier van zijn fiets gereden door een toeschouwer die de weg op stapte, en won toch. Na deze bocht is het nog een stuk door het dorp naar de streep."}
+};
+const NL_BENDS = Object.keys(BENDINFO).filter(n=>BENDINFO[n].nl).length;
+
+/* ---------- Gegevens (ontwerp) ---------- */
+const riders = {
+  maurice:{slug:"maurice",naam:"Maurice Megens",voornaam:"Maurice",foto:"img/maurice.jpg",discipline:"Fietsen",klims:6,doel:10000,opgehaald:432,prijs:500,
+    actie:"https://inschrijving.opgevenisgeenoptie.nl/fundraisers/MauriceMegens/alpe-dhuzes",team:"voorbeeld",toonTeam:false,
+    quote:"Opgeven is geen optie, letterlijk en figuurlijk.",
+    verhaal:["Mijn verhaal is niet anders dan dat van een ander. En dat is misschien juist zo heftig: heel veel mensen in onze omgeving worden ziek.","Ik sta daarom ook niet voor één iemand, want er is niet één iemand voor wie ik dit doe. Natuurlijk heb ik de mensen die dicht bij me staan die nog strijden of die hebben gestreden in mijn gedachten als ik de berg op ga. Maar ik doe het ook voor de toekomst, zodat mensen die het nu (nog) niet hebben, straks wél geholpen kunnen worden.","Elk jaar kies ik bewust een nieuwe lichamelijke uitdaging. Dit jaar is dat de Alpe d’HuZes: zes keer die berg op. Het sportieve is voor mij niet het belangrijkste. De echte strijders zijn de mensen die met kanker te maken hebben of hebben gehad. Door mee te doen kan ik op mijn manier een beetje met hen meestrijden.","Het is een eer om de verantwoordelijkheid te mogen dragen dat jullie steun met kracht naar de top wordt gebracht. Samen kunnen we iets doen. Daarom doe ik mee."],
+    particulier:false,
+    bochten:{21:{s:"geadopteerd",b:"Vindbaar.ai",logo:"img/vindbaar.svg",m:"Bocht 21 is de eerste. Daar begint het, en wij staan er.",v:1},2:{s:"geadopteerd",b:"Elusive Innovations",logo:"img/elusive.svg",dark:true,m:"Vanaf bocht 2 is het nog één bocht. Wij duwen je naar de top.",v:1},7:{s:"geadopteerd",b:"Voorbeeld BV",m:"Zet 'm op Maurice!",v:1},18:{s:"geadopteerd",b:"Trust Marketing",m:"Bocht 18, Hennie Kuiper. Daar hoort doorzetten bij.",v:1},9:{s:"geadopteerd",b:"HeroHive GmbH",logo:"img/herohive.svg",m:"Viel Erfolg, Maurice! Wir drücken die Daumen.",v:1},16:{s:"geadopteerd",b:"Bouwbedrijf Voorbeeld",m:"Halverwege de onderste bochten. Doortrappen!",v:1},14:{s:"gereserveerd",v:1}}, speed:1},
+  piet:{slug:"piet",naam:"Piet de Vries",voornaam:"Piet",voorbeeld:true,discipline:"Fietsen",klims:3,doel:5250,opgehaald:2750,prijs:250,actie:"https://www.opgevenisgeenoptie.nl",team:"voorbeeld",
+    quote:"Drie keer omhoog voor mijn vader.",verhaal:["Voorbeeldtekst. Hier staat waarom deze deelnemer meedoet. De tekst komt van de eigen actiepagina."],
+    particulier:{prijs:100},
+    bochten:{6:{s:"geadopteerd",b:"Familie de Vries",type:"p",voor:"Opa Henk"},21:{s:"geadopteerd",b:"Bakkerij Voorbeeld"},20:{s:"geadopteerd",b:"Garage Voorbeeld"},19:{s:"geadopteerd",b:"Voorbeeld Advies"},12:{s:"geadopteerd",b:"Installatiebedrijf Voorbeeld"},8:{s:"gereserveerd"},1:{s:"geadopteerd",b:"Voorbeeld Holding"}}, speed:.88},
+  sanne:{slug:"sanne",naam:"Sanne Jansen",voornaam:"Sanne",voorbeeld:true,discipline:"Fietsen",klims:2,doel:3150,opgehaald:1350,prijs:150,actie:"https://www.opgevenisgeenoptie.nl",team:"voorbeeld",
+    quote:"Twee keer naar boven, voor mijn moeder.",verhaal:["Voorbeeldtekst. Hier vertelt een deelnemer waarom zij meedoet."],
+    particulier:{prijs:100},
+    bochten:{3:{s:"geadopteerd",b:"Marieke en Joost",type:"p",voor:"Mama"},18:{s:"geadopteerd",b:"Fysio Voorbeeld"},10:{s:"geadopteerd",b:"Voorbeeld Makelaars"},5:{s:"gereserveerd"}}, speed:.75}
+};
+const teams = {"voorbeeld":{slug:"voorbeeld",naam:"Team Voorbeeld",voorbeeld:true,leden:["piet","sanne"],doel:8400},
+  "dpmm":{slug:"dpmm",naam:"Dikke Pens Mooi Mens",dorp:"Berghem",foto:"img/team.jpg",vlag:"img/berghem.svg",leden:["maurice"],doel:17500,opgehaald:2411,stand:"23 okt 2026",
+  namen:[{naam:"Jesse van Tooren",opg:630,url:"JesseTooren"},{naam:"Aaron Reuling",opg:511,url:"aaronreuling"},{naam:"Maurice Megens",opg:432,slug:"maurice"},{naam:"Wouter van de Ven",opg:337,url:"wouterven",captain:true},{naam:"Erwin van den Hurk",opg:292,url:"ErwinHurk"},{naam:"Noor Janssen",opg:209,url:"NoorJanssen"}],
+  verhaal:"Wij zijn een vriendengroep uit Berghem. Op 3 juni 2027 fietsen we samen de Alpe d'Huez op voor KWF, zo vaak als we kunnen. We hebben een chalet op de berg gehuurd, en ons doel is € 17.500 voor het KWF.",
+  verhaal2:"Hoe vaak we de top halen, weten we nog niet. Wel dat we er alles aan doen. Elke bocht die jij adopteert, geeft een van ons een extra reden om door te trappen."}};
+const teamName = r => r.team && r.toonTeam!==false ? teams[r.team].naam : "";
+const mates = r => r.team ? teams[r.team].leden.filter(x=>x!==r.slug).map(x=>riders[x]) : [];
+const freeCount = r => BENDS.filter(b=>status(r,b.n)==="vrij").length;
+let invite = {slug:"maurice", bedrijf:"Bakkerij Jansen", n:12, door:"Maurice"};
+const COLOURS = {maurice:"#FF6B33", piet:"#5B86FF", sanne:"#34D399"};
+
+const euro = n => "€ " + Math.round(n).toLocaleString("nl-NL");
+const km1 = k => k.toLocaleString("nl-NL",{minimumFractionDigits:1,maximumFractionDigits:1});
+const status = (r,n) => (r.bochten[n]||{}).s || "vrij";
+const adoptCount = r => Object.values(r.bochten).filter(b=>b.s==="geadopteerd").length;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const avatar = r => r.foto ? `<span class="avatar"><img src="${r.foto}" alt=""></span>` : `<span class="avatar">${r.voornaam[0]}${r.naam.split(" ").pop()[0]}</span>`;
+const ex = on => on ? ` <span class="ex">voorbeeld</span>` : "";
+const logoChip = (d, cls="") => d && d.logo ? `<span class="logo-chip ${cls}" style="${d.dark?"background:#0D1828":""}"><img src="${d.logo}" alt=""></span>` : `<span class="logo-chip ${cls}">${d&&d.type==="p"?'<svg viewBox="0 0 24 24" width="20" height="20" fill="var(--accent)"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>':esc(d?d.b:"").slice(0,2).toUpperCase()}</span>`;
+const sponsorLine = d => d.type==="p" && d.voor ? `${esc(d.b)} · voor ${esc(d.voor)}` : esc(d.b);
+const fmt = min => String(Math.floor(min/60)%24).padStart(2,"0")+":"+String(Math.floor(min%60)).padStart(2,"0");
+
+/* ---------- Tijdschema ---------- */
+const UP_MIN = 78, DOWN_MIN = 32, START = 5*60, TOP_WAIT = 8, BOTTOM_WAIT = 6;
+function schedule(r, offset){
+  const up = UP_MIN / r.speed, down = DOWN_MIN / Math.max(.8, r.speed); let t = START + offset; const out = [];
+  for(let k=1;k<=r.klims;k++){ out.push({k, s:t, top:t+up, up, down}); t += up + TOP_WAIT + down + BOTTOM_WAIT; }
+  return out;
+}
+function posAt(r, offset, t){
+  for(const c of schedule(r, offset)){
+    if(t < c.s) return {klim:c.k, km:0, dir:0, wacht:true};
+    if(t <= c.top) return {klim:c.k, km:KM*(t-c.s)/c.up, dir:1, up:c.up};
+    const ds = c.top + TOP_WAIT;
+    if(t < ds) return {klim:c.k, km:KM, dir:0, top:true};
+    if(t <= ds + c.down) return {klim:c.k, km:KM*(1-(t-ds)/c.down), dir:-1};
+  }
+  return {klim:r.klims, km:KM, dir:0, klaar:true};
+}
+
+/* ---------- Kaart ---------- */
+function mapLabel(b, d, st, x, y, dx, dy){
+  const tx=(x+dx*34).toFixed(1), ty=(y+dy*34).toFixed(1), start=dx>=0, info=BENDINFO[b.n];
+  if(st==="geadopteerd"){
+    const img = d.logo ? `<rect x="${start?0:-30}" y="-15" width="30" height="30" rx="8" fill="${d.dark?"#0D1828":"#fff"}"/><image href="${d.logo}" x="${start?3:-27}" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>` : "";
+    const off = d.logo ? (start?38:-38) : 0;
+    return `<g class="lbl" transform="translate(${tx},${ty})">${img}<text class="mk-label" x="${off}" text-anchor="${start?"start":"end"}" dominant-baseline="central" fill="${d.type==="p"?"#FFB59A":"var(--ok)"}" stroke="var(--bg)" stroke-width="4" paint-order="stroke">${sponsorLine(d)}</text></g>`;
+  }
+  if(info && info.dc) return `<g class="lbl" transform="translate(${tx},${ty})"><text class="mk-label" text-anchor="${start?"start":"end"}" dominant-baseline="central" fill="#FF9A5C" stroke="var(--bg)" stroke-width="4" paint-order="stroke">Dutch Corner</text></g>`;
+  return "";
+}
+function mapSVG({id, rider, interactive=false}){
+  const r = rider;
+  const grid = Array.from({length:12},(_,i)=>`<line x1="${i*90}" y1="0" x2="${i*90-MH*.5}" y2="${MH}" stroke="var(--line)" stroke-width="1" opacity=".35"/>`).join("");
+  const [sx,sy]=XY(0), [ex_,ey]=XY(KM);
+  let marks="";
+  BENDS.forEach(b=>{
+    const [x,y]=proj(b.lat,b.lon), st=r?status(r,b.n):"vrij", d=r&&r.bochten[b.n];
+    // label naar buiten de haarspeld
+    const [ax,ay]=XY(b.km-.07), [bx,by]=XY(b.km+.07); let dx=x-(ax+bx)/2, dy=y-(ay+by)/2; const L=Math.hypot(dx,dy)||1; dx/=L; dy/=L;
+    const fill = st==="geadopteerd"?"var(--ok)":st==="gereserveerd"?"var(--hold)":"var(--bg2)";
+    const lab = mapLabel(b, d, st, x, y, dx, dy);
+    marks += `<g class="pm" id="${id}b${b.n}" data-n="${b.n}" ${interactive?`role="button" tabindex="0" aria-label="Bocht ${b.n}, ${st}" style="cursor:pointer"`:""}>
+      ${lab}<circle class="mk" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17" fill="${fill}" stroke="var(--bg)" stroke-width="3"/>
+      <text x="${x.toFixed(1)}" y="${(y+.5).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-family="var(--display)" font-weight="800" font-size="14" fill="${st==="vrij"?"var(--ink)":"#0A111C"}">${b.n}</text></g>`;
+  });
+  return `<svg class="map" viewBox="0 0 ${MW} ${MH}" role="img" aria-label="Kaart van de klim naar Alpe d'Huez met de 21 bochten">
+    <defs>
+      <linearGradient id="${id}g" gradientUnits="userSpaceOnUse" x1="${sx}" y1="${sy}" x2="${ex_}" y2="${ey}"><stop offset="0" stop-color="var(--sky)"/><stop offset="1" stop-color="var(--accent)"/></linearGradient>
+      <filter id="${id}glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    </defs>
+    ${grid}
+    <path d="${ROUTE_D}" fill="none" stroke="var(--road)" stroke-width="26" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="${ROUTE_D}" fill="none" stroke="url(#${id}g)" stroke-width="3" stroke-linejoin="round" opacity=".55" stroke-dasharray="2 7" stroke-linecap="round"/>
+    <path id="${id}trailglow" d="${ROUTE_D}" pathLength="1000" fill="none" stroke="var(--accent)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0 1000" filter="url(#${id}glow)" opacity=".8"/>
+    <path id="${id}trail" d="${ROUTE_D}" pathLength="1000" fill="none" stroke="url(#${id}g)" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0 1000"/>
+    <g id="${id}fx"></g>
+    ${marks}
+    <g transform="translate(${sx.toFixed(1)},${sy.toFixed(1)})"><circle r="7" fill="var(--sky)"/><text x="14" y="5" font-family="var(--mono)" font-size="16" fill="var(--muted)">Bourg-d'Oisans · ${ALT0} m</text></g>
+    <g transform="translate(${ex_.toFixed(1)},${ey.toFixed(1)})"><path d="M0 0 V-26 H18 L14 -20 L18 -14 H0" fill="var(--accent)"/><text x="-10" y="18" text-anchor="end" font-family="var(--mono)" font-size="16" fill="var(--muted)">Alpe d'Huez · ${ALT1} m</text></g>
+    <g transform="translate(${MW-44},44) rotate(${NORTH.toFixed(1)})"><circle r="18" fill="var(--bg2)" stroke="var(--line)"/><path d="M0 -12 L5 4 L0 1 L-5 4Z" fill="var(--ink)"/></g>
+    <g id="${id}riders"></g>
+  </svg>`;
+}
+function mapBlock(id, rider, opts={}){
+  return `<div class="mapwrap night" id="${id}wrap">${mapSVG({id, rider, interactive:opts.interactive})}
+    <div class="tagline">${opts.chip?`<span class="livechip"><i></i>${opts.chip}</span>`:""}<span class="livechip near" id="${id}near" hidden></span></div>
+    ${opts.hud===false?"":`<div class="hud"><span id="${id}clock">05:00</span><span id="${id}klim"></span><span id="${id}alt"></span></div>`}
+    <div class="moment" id="${id}moment" aria-live="polite"></div></div>`;
+}
+function profileSVG(id, h=150){
+  const w=1000, pl=40, pr=14, pt=14, pb=24;
+  const X = k => pl + (k/KM)*(w-pl-pr), Y = a => pt + (1-(a-ALT0)/(ALT1-ALT0))*(h-pt-pb);
+  const line = ROUTE.map((p,i)=>(i?"L":"M")+X(p[2]/1000).toFixed(1)+","+Y(p[3]).toFixed(1)).join("");
+  const ticks = BENDS.map(b=>`<line x1="${X(b.km)}" x2="${X(b.km)}" y1="${Y(b.alt)}" y2="${h-pb}" stroke="var(--line)"/><text x="${X(b.km)}" y="${h-8}" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--muted)">${b.n}</text>`).join("");
+  return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Hoogteprofiel"><defs><linearGradient id="${id}pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".5"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+    ${ticks}<path d="${line}L${X(KM)},${h-pb}L${X(0)},${h-pb}Z" fill="url(#${id}pg)"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+    <text x="${pl-6}" y="${Y(ALT1)+4}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--muted)">${ALT1}</text><text x="${pl-6}" y="${Y(ALT0)}" text-anchor="end" font-family="var(--mono)" font-size="10" fill="var(--muted)">${ALT0}</text>
+    <g id="${id}pr"></g></svg>`;
+}
+
+/* ---------- Animatie ---------- */
+const runners = [];
+function stopRunners(){ runners.splice(0).forEach(x=>x.stop()); }
+function makeRunner(o){
+  // o: {id, list:[{r,offset}], follow, t, speed (simulatieminuten per seconde), loop, running, onPass, onNotice, onFrame}
+  const st = {t:o.t, speed:o.speed, running:o.running!==false, follow:o.follow, last:{}, notified:new Set()};
+  let raf=0, prev=performance.now();
+  const followItem = () => o.list.find(x=>x.r.slug===st.follow);
+  function check(){
+    o.list.forEach(it=>{
+      const p = posAt(it.r, it.offset, st.t), q = st.last[it.r.slug];
+      if(q && p.dir===1 && q.dir===1 && q.klim===p.klim){
+        BENDS.forEach(b=>{ if(q.km < b.km && p.km >= b.km) o.onPass && o.onPass(it, b, p.klim, st.t, st); });
+      }
+      if(it.r.slug===st.follow && p.dir===1 && o.onNotice){
+        BENDS.forEach(b=>{ const d=it.r.bochten[b.n]; if(!d||d.s!=="geadopteerd"||b.km<=p.km) return;
+          const eta=(b.km-p.km)/(KM/p.up), key=p.klim+"-"+b.n; if(eta<=5 && !st.notified.has(key)){ st.notified.add(key); o.onNotice(it,b,p.klim,eta); } });
+      }
+      st.last[it.r.slug]=p;
+    });
+    if(o.loop){ const it=followItem(), p=st.last[it.r.slug]; if(p && p.dir!==1 && !p.wacht){ st.t = schedule(it.r,it.offset)[0].s - 1.5; st.last={}; st.notified.clear(); } }
+  }
+  function draw(){
+    const L = document.getElementById(o.id+"riders"); if(!L) return;
+    let html="";
+    o.list.forEach(it=>{
+      const p = st.last[it.r.slug] || posAt(it.r,it.offset,st.t), [x,y]=XY(p.km), f=it.r.slug===st.follow, c=COLOURS[it.r.slug]||"#fff";
+      html += `<g transform="translate(${x.toFixed(1)},${y.toFixed(1)})">${f?`<circle r="26" fill="${c}" opacity=".18"/><circle r="17" fill="none" stroke="${c}" stroke-width="2" opacity=".6"/>`:""}
+        <circle r="${f?11:8}" fill="${c}" stroke="#070C16" stroke-width="3"/>
+        <g transform="translate(0,${f?-34:-24})"><rect x="${-(it.r.voornaam.length*4.6+14)}" y="-12" width="${it.r.voornaam.length*9.2+28}" height="24" rx="12" fill="#070C16" stroke="${c}"/><text text-anchor="middle" dominant-baseline="central" font-family="var(--body)" font-weight="800" font-size="12" fill="#fff">${esc(it.r.voornaam)}${p.dir<0?" ↓":""}</text></g></g>`;
+    });
+    L.innerHTML = html;
+    const it=followItem(), p=st.last[it.r.slug]||posAt(it.r,it.offset,st.t);
+    const prog = p.dir===1 ? 1000*p.km/KM : p.top||p.klaar ? 1000 : p.dir===-1 ? 1000*p.km/KM : 0;
+    ["trail","trailglow"].forEach(k=>{ const e=document.getElementById(o.id+k); e&&e.setAttribute("stroke-dasharray",`${prog.toFixed(1)} 1000`); });
+    const set=(k,v)=>{const e=document.getElementById(o.id+k); if(e) e.innerHTML=v;};
+    set("clock", fmt(st.t));
+    set("klim", p.wacht?`Start klim <b>${p.klim}</b> van ${it.r.klims}`:p.dir===-1?`Afdaling na klim <b>${p.klim}</b>`:p.top?`Op de top · klim <b>${p.klim}</b>`:`Klim <b>${p.klim}</b> van ${it.r.klims}`);
+    set("alt", `<b>${Math.round(altAt(p.km))} m</b> · km ${km1(p.km)}`);
+    const near = document.getElementById(o.id+"near");
+    if(near){ const nb = p.dir===1 && BENDS.filter(b=>b.km>p.km && it.r.bochten[b.n]?.s==="geadopteerd").sort((a,b)=>a.km-b.km)[0];
+      if(nb && nb.km-p.km < .9){ near.hidden=false; near.textContent=`Nadert bocht ${nb.n} · ${it.r.bochten[nb.n].b} · nog ${Math.max(10,Math.round((nb.km-p.km)*1000/10)*10)} m`; } else near.hidden=true; }
+    o.onFrame && o.onFrame(st, p, it);
+  }
+  function frame(now){
+    const dt=Math.min(.1,(now-prev)/1000); prev=now;
+    if(st.running){ const dm=dt*st.speed, n=Math.max(1,Math.ceil(dm/.2)); for(let i=0;i<n;i++){ st.t+=dm/n; check(); } }
+    draw(); raf=requestAnimationFrame(frame);
+  }
+  check(); draw(); raf=requestAnimationFrame(frame);
+  const api = {st, stop(){cancelAnimationFrame(raf)}, setFollow(s){st.follow=s; st.notified.clear(); draw();}};
+  runners.push(api); return api;
+}
+const momentTimers = {};
+function flashBend(id, n){
+  const g=document.getElementById(id+"b"+n), fx=document.getElementById(id+"fx"); if(!g||!fx) return;
+  g.classList.add("flash"); setTimeout(()=>g.classList.remove("flash"),900);
+  const b=BENDS.find(x=>x.n===n), [x,y]=proj(b.lat,b.lon);
+  fx.insertAdjacentHTML("beforeend",["","b2","b3"].map(c=>`<circle class="burst ${c}" cx="${x}" cy="${y}" r="14"/>`).join(""));
+  setTimeout(()=>{ fx.innerHTML=""; },2200);
+}
+function showMoment(id, r, b, klim, t){
+  const d=r.bochten[b.n], el=document.getElementById(id+"moment"); if(!el) return;
+  el.innerHTML = `<div style="display:flex;justify-content:space-between;gap:12px;align-items:start"><span class="now"><i></i>NU LIVE</span>${d.logo?logoChip(d,"lg"):""}</div><div class="mb">Bocht ${b.n}</div><div class="ms">${sponsorLine(d)}</div>
+    <div class="mt">${esc(r.voornaam)} komt nu langs ${d.type==="p"?"jouw":"jullie"} bocht · klim ${klim} van ${r.klims} · ${fmt(t)} · ${b.alt} m<br>Op het bord: ${BENDINFO[b.n].bord}</div>`;
+  el.classList.add("show"); clearTimeout(momentTimers[id]); momentTimers[id]=setTimeout(()=>el.classList.remove("show"),3200);
+}
+function standardPass(id){
+  return (it,b,klim,t,st)=>{ if(it.r.slug!==st.follow) return; flashBend(id,b.n); const d=it.r.bochten[b.n]; if(d&&d.s==="geadopteerd") showMoment(id,it.r,b,klim,t); };
+}
+let toastT=0;
+function toast(msg){ const el=document.getElementById("toast"); el.textContent=msg; el.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>el.hidden=true,2600); }
+
+/* ---------- Views ---------- */
+const app = document.getElementById("app");
+const icon = {
+  shirt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M8 3 4 6l2 4 2-1v12h8V9l2 1 2-4-4-3c-.5 1.5-2 2.5-4 2.5S8.5 4.5 8 3z"/></svg>',
+  flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 21V4h11l-2 4 2 4H5"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg>',
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg>',
+  spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>',
+  scan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 12h8"/></svg>'
+};
+function countdown(){
+  const d = new Date("2027-06-03T05:00:00+02:00") - new Date();
+  const days = Math.max(0, Math.floor(d/864e5)), hrs = Math.max(0, Math.floor(d/36e5)%24);
+  return `<div class="countdown" aria-label="Nog ${days} dagen tot 3 juni 2027"><div><b class="num">${days}</b><span>dagen</span></div><div><b class="num">${hrs}</b><span>uur</span></div><div><b>05:00</b><span>start 3 juni</span></div></div>`;
+}
+
+function viewHome(){
+  const all = Object.values(riders);
+  return `<header class="phero"><div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Alpe d'HuZes · donderdag 3 juni 2027</p>
+        <h1 style="margin-top:14px">21 bochten. Elk met een bedrijf erachter.</h1>
+        <p class="lede">Deelnemers laten hun bochten adopteren door bedrijven. Op 3 juni zien die bedrijven live het moment dat hun renner langs hún bocht komt.</p>
+        <div class="cta"><a class="btn btn-primary" href="#aanmelden" data-go="aanmelden">Start je eigen pagina</a><a class="btn btn-ghost" href="#maurice" data-go="maurice">Bekijk Maurice</a></div>
+      </div>
+      ${mapBlock("hm", riders.maurice, {chip:"Voorbeeld van 3 juni"})}
+    </div>
+    <div class="kpis">
+      <div class="card kpi"><b class="num">${all.length}</b><span>deelnemers${ex(true)}</span></div>
+      <div class="card kpi"><b class="num">${Object.keys(teams).length}</b><span>team${ex(true)}</span></div>
+      <div class="card kpi"><b class="num">${all.reduce((s,r)=>s+adoptCount(r),0)}</b><span>bochten geadopteerd${ex(true)}</span></div>
+      <div class="card kpi"><b class="num">${KM.toLocaleString("nl-NL",{maximumFractionDigits:1})} km</b><span>van Bourg-d'Oisans tot boven, ${ALT1-ALT0} hoogtemeters</span></div>
+    </div>
+  </div></header>
+  <section class="block"><div class="wrap">
+    <p class="eyebrow">Zo werkt het</p><h2 style="margin-top:8px">Voor deelnemers en voor sponsors</h2>
+    <div class="how">
+      <div class="card dark"><h3>Je doet mee aan Alpe d'HuZes</h3><ol>
+        <li><div><b>Plak je actiepagina.</b> <span class="muted">We halen je naam, verhaal en stand op.</span></div></li>
+        <li><div><b>Kies je prijs per bocht.</b> <span class="muted">Voorstel: je doel gedeeld door 21.</span></div></li>
+        <li><div><b>Bevestig dat het jouw pagina is.</b> <span class="muted">Zet een korte code even in je verhaal.</span></div></li>
+        <li><div><b>Deel je link.</b> <span class="muted">Jouw pagina staat op 21bochten.nl/jouwnaam.</span></div></li></ol></div>
+      <div class="card"><h3>Je bent een bedrijf of particulier</h3><ol>
+        <li><div><b>Kies een vrije bocht.</b> <span class="muted">Eén sponsor per bocht. Staat de deelnemer het toe, dan kan een particulier een bocht nemen voor € 100, met erbij voor wie je klimt.</span></div></li>
+        <li><div><b>Doneer via de officiële actiepagina.</b> <span class="muted">Met het bochtnummer in je bericht. Per factuur kan ook.</span></div></li>
+        <li><div><b>Je naam staat bij je bocht.</b> <span class="muted">Zodra de donatie binnen is, automatisch.</span></div></li>
+        <li><div><b>Beleef 3 juni live.</b> <span class="muted">Een seintje vooraf en het moment zelf op je scherm.</span></div></li></ol></div>
+    </div>
+  </div></section>
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="row"><div><p class="eyebrow">Deelnemers</p><h2 style="margin-top:8px">Wie klimt er mee</h2></div><a class="btn btn-ghost btn-sm" href="#dpmm" data-go="dpmm">Bekijk teams</a></div>
+    <div class="riders">${all.map(riderCard).join("")}
+      <a class="card rider" href="#aanmelden" data-go="aanmelden" style="border-style:dashed;box-shadow:none;place-content:center;text-align:center;min-height:200px"><b style="font-family:var(--display)">+ Jij?</b><span class="muted">Maak je eigen 21 bochten</span></a>
+    </div>
+  </div></section>`;
+}
+function riderCard(r){
+  const pct = Math.min(100, r.opgehaald / r.doel * 100);
+  return `<a class="card rider" href="#${r.slug}" data-go="${r.slug}">
+    <div class="rider-top">${avatar(r)}<div><b>${esc(r.naam)}</b>${ex(r.voorbeeld)}<div class="muted" style="font-size:.85rem">${r.discipline} · ${r.klims}× omhoog${teamName(r)?` · ${esc(teamName(r))}`:""}</div></div></div>
+    <div class="mini-bends" aria-label="${adoptCount(r)} van 21 bochten geadopteerd">${BENDS.map(b=>`<i class="${status(r,b.n)}"></i>`).join("")}</div>
+    <div><div class="row" style="font-size:.88rem"><b class="num">${euro(r.opgehaald)}</b><span class="muted">van ${euro(r.doel)}</span></div><div class="bar" style="margin-top:6px"><i style="width:${pct}%"></i></div></div>
+  </a>`;
+}
+const cap = w => w[0].toUpperCase()+w.slice(1);
+const NUMWORD = {1:"één",2:"twee",3:"drie",4:"vier",5:"vijf",6:"zes"};
+function viewRider(r){
+  const pct = Math.min(100, r.opgehaald / r.doel * 100), ad = adoptCount(r), res = Object.values(r.bochten).filter(b=>b.s==="gereserveerd").length;
+  const adopted = BENDS.filter(b=>status(r,b.n)==="geadopteerd");
+  return `<header class="rhero"><div class="wrap hero-grid">
+    <div>
+      <div class="who">${r.foto?`<span class="face"><img src="${r.foto}" alt="${esc(r.naam)}"></span>`:`<span class="avatar" style="width:76px;height:76px;font-size:1.4rem">${r.voornaam[0]}</span>`}
+        <div><p class="eyebrow">Alpe d'HuZes voor KWF${teamName(r)?` · ${esc(teamName(r))}`:""}</p><b style="font-size:1.05rem">${esc(r.naam)}</b>${ex(r.voorbeeld)}<div class="muted" style="font-size:.88rem">${r.discipline} · ${r.klims}× omhoog · 3 juni 2027</div></div></div>
+      <h1 style="margin-top:20px">${cap(NUMWORD[r.klims]||String(r.klims))} keer omhoog. Jouw bocht, ${NUMWORD[r.klims]||r.klims} keer live.</h1>
+      <p style="font-size:1.1rem;color:var(--muted);margin-top:14px;max-width:34em">Adopteer een van de 21 bochten: als bedrijf voor ${euro(r.prijs)}${r.particulier?`, als particulier voor ${euro(r.particulier.prijs)}`:""}. Op 3 juni krijg je een seintje als ${esc(r.voornaam)} eraan komt, en zie je het moment dat jouw rijder langs jouw bocht komt.</p>
+      <div class="card raise">
+        <div class="row"><span class="big num">${euro(r.opgehaald)}</span><span class="muted">van ${euro(r.doel)}${r.slug==="maurice"?" · stand 23 okt 2026":""}</span></div>
+        <div class="bar"><i style="width:${pct}%"></i></div>
+        <div class="row" style="font-size:.9rem"><span><b>${ad}</b> van 21 bochten geadopteerd</span><span class="muted">${21-ad-res} vrij</span></div>
+        <div class="cta" style="margin-top:4px"><a class="btn btn-primary" href="#bord" data-scroll="bord">Kies jouw bocht</a><a class="btn btn-ghost" href="${r.actie}" target="_blank" rel="noopener">Doneer een ander bedrag</a></div>
+      </div>
+      ${countdown()}
+    </div>
+    ${mapBlock("rm", r, {chip:"Voorbeeld van 3 juni"})}
+  </div></header>
+
+  <section class="block" id="bord"><div class="wrap">
+    <div class="row" style="align-items:end"><div><p class="eyebrow">De 21 bochten, zoals de weg echt loopt</p><h2 style="margin-top:8px">Kies jouw bocht</h2></div>
+      <div class="legend"><span><i class="dot vrij"></i>Vrij · bedrijf ${euro(r.prijs)}${r.particulier?` · particulier ${euro(r.particulier.prijs)}`:""}</span><span><i class="dot gereserveerd"></i>Gereserveerd</span><span><i class="dot geadopteerd"></i>Geadopteerd</span></div></div>
+    <div class="board">
+      ${mapBlock("bm", r, {interactive:true, hud:false})}
+      <div class="tiles">${BENDS.map(b=>{const st=status(r,b.n),d=r.bochten[b.n]||{};return `<button class="tile ${st}" data-bend="${b.n}">
+        <span class="st"><i class="dot ${st}"></i></span><span class="n">${b.n}</span><span class="meta">km ${km1(b.km)} · ${b.alt} m</span>
+        ${BENDINFO[b.n].dc?'<span class="badge-nl">DUTCH CORNER</span>':BENDINFO[b.n].nl?'<span class="badge-nl">NL-BOCHT</span>':""}
+        <span class="whoo" style="display:flex;gap:6px;align-items:center">${st==="geadopteerd"?`${logoChip(d,"sm")}<span>${sponsorLine(d)}</span>`:st==="gereserveerd"?"Gereserveerd":`<span class="price">${euro(r.prijs)}${r.particulier?` · ${euro(r.particulier.prijs)}`:""}</span>`}</span></button>`}).join("")}</div>
+    </div>
+    <p class="muted" style="font-size:.8rem;margin-top:10px">Ligging van de bochten berekend uit OpenStreetMap, hoogtes uit SRTM. Nog te controleren op een satellietkaart.</p>
+    <div class="facts-strip">
+      <div class="card"><span class="eyebrow">Bocht 7</span><b>Dutch Corner</b><span class="muted">Bij de kerk van La Garde kleuren Nederlanders de weg oranje. De bekendste bocht van de berg.</span></div>
+      <div class="card"><span class="eyebrow">${NL_BENDS} bochten</span><b>Nederlandse namen</b><span class="muted">Elke bocht draagt de naam van een etappewinnaar. Op ${NL_BENDS} borden staat een Nederlander: Zoetemelk, Kuiper, Winnen, Rooks en Theunisse.</span></div>
+      <div class="card"><span class="eyebrow">Bocht 21</span><b>Fausto Coppi, 1952</b><span class="muted">De eerste winnaar boven. Zijn naam staat op de eerste bocht, en de borden tellen af naar Guerini op bocht 1.</span></div>
+    </div>
+  </div></section>
+
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <p class="eyebrow">Jouw bocht, van nu tot na de rit</p><h2 style="margin-top:8px">Zeven maanden meeleven</h2>
+    <div class="journey">
+      <div class="card jcol"><span class="pill">Nu tot juni</span><h3>Aanloop</h3><ul>
+        <li><b>Welkomstpakket</b><span>Twee shirts en een poster van jouw bocht, met kilometer en hoogte.</span></li>
+        <li><b>Klim mee op Strava</b><span>Je collega's fietsen, lopen of wandelen samen de ${ALT1-ALT0} hoogtemeters van één beklimming. Strava houdt het klassement van jullie club bij.</span></li>
+        <li><b>Raad de tijd</b><span>Je team voorspelt hoe laat ${esc(r.voornaam)} in de laatste klim langs jullie bocht komt.</span></li></ul></div>
+      <div class="card jcol hot"><span class="pill acc">3 juni</span><h3>De dag</h3><ul>
+        <li><b>Seintje vooraf</b><span>Vijf minuten voor elke passage een bericht in Teams, Slack, WhatsApp of je mail.</span></li>
+        <li><b>Het moment</b><span>Op je scherm verschijnt groot: "Nu live, bocht ${adopted[0]?adopted[0].n:2}". ${NUMWORD[r.klims]||r.klims} keer op één dag.</span></li>
+        <li><b>Kantoorscherm</b><span>Eén link voor de tv: een aftelklok tot jullie bocht.</span></li></ul>
+        <a class="btn btn-primary btn-sm" href="#tv" data-go="tv" style="justify-self:start">Bekijk het kantoorscherm</a></div>
+      <div class="card jcol"><span class="pill ok">Daarna</span><h3>Herinnering</h3><ul>
+        <li><b>Bochtposter</b><span>Je ${r.klims} passagetijden op de kaart van jouw bocht.</span></li>
+        <li><b>Uitslag Raad de tijd</b><span>Met een prijs voor het team dat het dichtst zat.</span></li>
+        <li><b>AI-ochtend</b><span>Met alle sponsors, en wat AI in jouw bedrijf kan doen.</span></li></ul></div>
+    </div>
+    <div class="gets">
+      <div class="card get"><span class="ic">${icon.flag}</span><b>Je naam op de berg</b><span>Bij je bocht op deze pagina en op het shirt van ${esc(r.voornaam)}.</span></div>
+      <div class="card get"><span class="ic">${icon.shirt}</span><b>2 shirts</b><span>Hetzelfde shirt, met alle bochtsponsors erop.</span></div>
+      <div class="card get"><span class="ic">${icon.bell}</span><b>${r.klims} momenten</b><span>Een seintje vooraf en het moment zelf, live.</span></div>
+      <div class="card get"><span class="ic">${icon.share}</span><b>Deelbeeld</b><span>Kant-en-klaar voor LinkedIn, voor en na de rit.</span></div>
+      <div class="card get"><span class="ic">${icon.scan}</span><b>Bedrijfsscan</b><span>Elusive Innovations laat zien waar AI in jouw bedrijf tijd bespaart.</span></div>
+    </div>
+  </div></section>
+
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="kit card night">
+      <div class="row"><div><p class="eyebrow">Alleen zichtbaar voor ${esc(r.voornaam)} · je beheerscherm</p><h2 style="margin-top:8px">Jouw deelkit</h2></div><span class="pill acc">${freeCount(r)} bochten vrij</span></div>
+      <div class="kit-grid">
+        <div class="kit-cell"><b>Je eigen link</b><div class="copy"><code id="kit-link">21bochten.nl/${r.slug}</code><button class="btn btn-ghost btn-sm" type="button" data-copy="21bochten.nl/${r.slug}">Kopieer</button></div>
+          <div class="qr" id="kit-qr" aria-label="QR-code naar je pagina"></div><span class="muted" style="font-size:.85rem">Voor op je shirt, een flyer of je mailhandtekening.</span></div>
+        <div class="kit-cell"><b>Bericht voor WhatsApp of LinkedIn</b>
+          <textarea id="kit-msg" rows="7" aria-label="Bericht om te delen">Op 3 juni fiets ik ${NUMWORD[r.klims]||r.klims} keer de Alpe d'Huez op voor KWF. De klim heeft 21 bochten, en ik zoek voor elke bocht een sponsor. Adopteer je er een, dan krijg je op 3 juni live een seintje als ik eraan kom. Kies je bocht: 21bochten.nl/${r.slug}</textarea>
+          <div class="cta" style="margin-top:0"><button class="btn btn-ghost btn-sm" type="button" data-copy-from="kit-msg">Kopieer bericht</button></div></div>
+        <div class="kit-cell"><b>Persoonlijke uitnodiging</b><span class="muted" style="font-size:.9rem">Ken je een bedrijf? Maak een pagina met hun naam erop, met een bocht die 7 dagen voor ze vastligt. Ze zien meteen hun eigen live moment.</span>
+          <form class="form" id="inv" style="gap:10px"><label for="inv-b">Bedrijf<input id="inv-b" value="Bakkerij Jansen" required></label>
+            <label for="inv-n">Bocht<select id="inv-n">${BENDS.filter(b=>status(r,b.n)==="vrij").map(b=>`<option value="${b.n}" ${b.n===12?"selected":""}>Bocht ${b.n} · ${BENDINFO[b.n].bord}</option>`).join("")}</select></label>
+            <button class="btn btn-primary btn-sm" type="submit">Maak uitnodiging</button></form></div>
+      </div>
+    </div>
+    ${r.team&&teams[r.team].namen?`<div class="card sponsors" style="margin-top:16px"><div class="row"><h3>Ken je meer bedrijven dan ik bochten heb?</h3><span class="muted" style="font-size:.9rem">Mijn vrienden uit Berghem fietsen ook. Hun geld gaat naar hun eigen actie.</span></div><div class="mates">${teams[r.team].namen.filter(m=>m.slug!==r.slug).map(m=>`<a class="mate" href="https://inschrijving.opgevenisgeenoptie.nl/fundraisers/${m.url}/alpe-dhuzes" target="_blank" rel="noopener"><span class="avatar">${m.naam.split(" ").filter(w=>w[0]===w[0].toUpperCase()).map(w=>w[0]).slice(0,2).join("")}</span><div style="min-width:0"><b>${esc(m.naam)}</b><div class="muted" style="font-size:.85rem">${euro(m.opg)} opgehaald · 21 bochten volgt</div></div><span class="pill">Actiepagina</span></a>`).join("")}</div></div>`:""}
+    ${!(r.team&&teams[r.team].namen)&&mates(r).length?`<div class="card sponsors" style="margin-top:16px"><div class="row"><h3>Ken je meer bedrijven dan ik bochten heb?</h3><span class="muted" style="font-size:.9rem">Deze ${teamName(r)?"teamgenoten":"mensen klimmen met mij mee en"} hebben nog bochten vrij. Hun geld gaat naar hun eigen actie.</span></div>
+      <div class="mates">${mates(r).map(m=>`<a class="mate" href="#${m.slug}" data-go="${m.slug}">${avatar(m)}<div style="min-width:0"><b>${esc(m.naam)}</b>${ex(m.voorbeeld)}<div class="muted" style="font-size:.85rem">${m.discipline} · ${m.klims}× · ${freeCount(m)} bochten vrij · ${euro(m.prijs)}${m.particulier?` of ${euro(m.particulier.prijs)}`:""}</div></div><span class="pill acc">Kies bocht</span></a>`).join("")}</div></div>`:""}
+  </div></section>
+
+  <section class="block" style="padding-top:0"><div class="wrap split">
+    <div class="card story"><p class="eyebrow">Waarom ik meedoe</p><p class="quote">“${esc(r.quote)}”</p>${r.verhaal.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+    <div style="display:grid;gap:16px">
+      ${r.team&&teams[r.team].foto?(()=>{const t=teams[r.team];return `<a class="card teamcard" href="#${t.slug}" data-go="${t.slug}">
+        <img class="tc-photo" src="${t.foto}" alt="Teamfoto van ${esc(t.naam)}">
+        <div class="tc-body"><div class="team-tag"><img class="flag" src="${t.vlag}" alt="Vlag van ${esc(t.dorp)}"><span class="eyebrow">Samen met mijn vrienden uit ${esc(t.dorp)}</span></div>
+          <b>${esc(t.naam)}</b><span class="muted" style="font-size:.9rem">${t.namen?t.namen.length+" vrienden":"Vrienden"}, een chalet op de berg, doel ${euro(t.doel)}.</span>
+          <div class="bar"><i style="width:${Math.min(100,t.opgehaald/t.doel*100)}%"></i></div><span class="muted" style="font-size:.82rem">${euro(t.opgehaald)} van ${euro(t.doel)} · stand ${t.stand}</span></div></a>`;})():""}
+      <div class="card sponsors"><div class="row"><h3>Bochtsponsors</h3><span class="pill ok">${ad} van 21</span></div>
+        ${adopted.length?adopted.map(b=>{const d=r.bochten[b.n];return `<div class="sponsor-row">${logoChip(d)}<div style="min-width:0"><b>${sponsorLine(d)}</b>${ex(d.v||r.voorbeeld)}<div class="muted" style="font-size:.85rem">Bocht ${b.n} · ${d.type==="p"?"particulier":"bedrijf"} · ${BENDINFO[b.n].bord}</div></div></div>`}).join(""):`<p class="muted">Nog geen sponsors. Jij kunt de eerste zijn.</p>`}
+      </div>
+      <a class="card sponsors" href="#live" data-go="live" style="text-decoration:none"><div class="row"><h3>De hele dag in de simulatie</h3><span class="pill acc">Live</span></div><p class="muted">Alle deelnemers tegelijk, met alle passages van 05:00 tot het eind.</p></a>
+    </div>
+  </div></section>`;
+}
+function viewTeam(t){
+  const ls = t.leden.map(s=>riders[s]), tot = ls.reduce((s,r)=>s+r.opgehaald,0);
+  const opg = t.opgehaald ?? tot;
+  return `<header class="rhero"><div class="wrap">
+    <div class="team-hero" style="${t.foto?"":"grid-template-columns:1fr"}">
+      ${t.foto?`<div class="team-photo"><img src="${t.foto}" alt="Teamfoto van ${esc(t.naam)}"></div>`:""}
+      <div>
+        <div class="team-tag">${t.vlag?`<img class="flag" src="${t.vlag}" alt="Vlag van ${esc(t.dorp)}">`:""}<span class="eyebrow">${t.dorp?`Team uit ${esc(t.dorp)}`:"Team"}</span></div>
+        <h1 style="margin-top:12px">${esc(t.naam)}${ex(t.voorbeeld)}</h1>
+        ${t.verhaal?`<p class="lede" style="color:var(--ink)">${esc(t.verhaal)}</p>`:""}${t.verhaal2?`<p class="lede">${esc(t.verhaal2)}</p>`:""}
+        <div class="raise card" style="max-width:560px"><div class="row"><span class="big num">${euro(opg)}</span><span class="muted">van ${euro(t.doel)}${t.stand?` · stand ${t.stand}`:""}</span></div><div class="bar"><i style="width:${Math.min(100,opg/t.doel*100)}%"></i></div></div>
+      </div>
+    </div>
+    ${t.namen?teamIntro(t):""}
+    <div class="kpis"><div class="card kpi"><b class="num">${t.namen?t.namen.length:ls.length}</b><span>${t.namen?"vrienden aangemeld, allemaal op de fiets":"leden"}</span></div><div class="card kpi"><b class="num">${euro(opg)}</b><span>opgehaald</span></div><div class="card kpi"><b class="num">${euro(t.doel)}</b><span>teamdoel</span></div><div class="card kpi"><b class="num">${ls.reduce((s,r)=>s+adoptCount(r),0)}</b><span>bochten geadopteerd</span></div></div>
+  </div></header>
+  <section class="block" style="padding-top:8px"><div class="wrap">
+    <div class="row" style="margin-bottom:14px"><h2>${t.namen?"Kies jouw rijder":"Wie fietsen er mee"}</h2>${t.namen?`<span class="muted" style="font-size:.9rem">Bedragen van de actiepagina's, stand ${t.stand}</span>`:""}</div>
+    ${t.namen?`<div class="card" id="kies">${[...t.namen].sort((a,b)=>b.opg-a.opg).map(m=>memberRow(m,t)).join("")}</div>`:""}
+    <div class="card" ${t.namen?"hidden":""}>${ls.map(r=>`<a class="member" href="#${r.slug}" data-go="${r.slug}">${avatar(r)}<div style="min-width:0"><b>${esc(r.naam)}</b><div class="muted" style="font-size:.85rem">${r.discipline} · ${r.klims}× · ${adoptCount(r)} van 21 bochten</div><div class="bar" style="margin-top:8px;max-width:340px"><i style="width:${Math.min(100,r.opgehaald/r.doel*100)}%"></i></div></div><b class="num">${euro(r.opgehaald)}</b></a>`).join("")}</div>
+    <div class="card teambocht night" style="margin-top:16px">
+      <div><p class="eyebrow">Voor bedrijven die het hele team steunen</p><h2 style="margin-top:8px">Eén bocht bij ons hele team</h2>
+        <p class="muted" style="margin-top:10px;max-width:40em">Kies een bochtnummer en adopteer die bocht bij ieder van ons tegelijk. Ieder deel gaat naar de eigen actiepagina van die rijder. Op 3 juni krijg je een moment bij elke passage van elke rijder.</p></div>
+      <div class="tb-row"><label for="tb-n" class="muted" style="font-weight:700">Bocht</label><select id="tb-n">${BENDS.map(b=>`<option value="${b.n}" ${b.n===7?"selected":""}>Bocht ${b.n}${BENDINFO[b.n].dc?" · Dutch Corner":BENDINFO[b.n].nl?" · NL-bocht":""}</option>`).join("")}</select></div>
+      <div id="tb-out"></div>
+    </div>
+    <div class="cta"><a class="btn btn-dark" href="#aanmelden" data-go="aanmelden">Sluit je aan bij dit team</a><a class="btn btn-ghost" href="#live" data-go="live">Volg het team live</a></div>
+  </div></section>`;
+}
+function teamIntro(t){
+  return `<div class="team-intro">
+    <div class="ti-text">
+      <p class="eyebrow">Zo werkt het</p><h2 style="margin-top:8px">Adopteer een bocht bij een van ons</h2>
+      <ol class="ti-steps">
+        <li><div><b>Kies jouw rijder.</b> <span class="muted">Iemand die je kent, of wie je wilt aanmoedigen.</span></div></li>
+        <li><div><b>Kies een van de 21 bochten.</b> <span class="muted">Elke bocht draagt de naam van een Tourwinnaar. Bocht 7 is de Dutch Corner.</span></div></li>
+        <li><div><b>Doneer via de actiepagina van jouw rijder.</b> <span class="muted">Het geld gaat rechtstreeks naar KWF en telt mee voor ons team.</span></div></li>
+        <li><div><b>Beleef 3 juni live.</b> <span class="muted">Een seintje vooraf, en het moment dat jouw rijder langs jouw bocht komt.</span></div></li>
+      </ol>
+      <div class="cta"><a class="btn btn-primary" href="#kies" data-scroll="kies">Kies jouw rijder</a><a class="btn btn-ghost" href="#live" data-go="live">Bekijk de dag live</a></div>
+    </div>
+    ${mapBlock("tm", null, {chip:"Voorbeeld van 3 juni · "+t.namen.length+" rijders"})}
+  </div>`;
+}
+function teamDemo(t){
+  // Elke teamgenoot als stip; de sponsors van Maurice dienen als voorbeeld voor het live moment
+  const list = t.namen.map((m,i)=>{ const r = m.slug && riders[m.slug];
+    return {r: r ? {...r, voornaam:r.voornaam} : {slug:"tm"+i, voornaam:m.naam.split(" ")[0], naam:m.naam, klims:6, speed:.82+((i*37)%30)/100, bochten:{}}, offset:i*3}; });
+  list.forEach((it,i)=>{ COLOURS[it.r.slug] = COLOURS[it.r.slug] || ["#5B86FF","#34D399","#FBBF24","#C084FC","#F472B6","#22D3EE"][i%6]; });
+  const lead = list.find(x=>x.r.slug==="maurice") || list[0], first = schedule(lead.r, lead.offset)[0];
+  makeRunner({id:"tm", list, follow:lead.r.slug, t:first.s+4, speed:.7, loop:true, onPass:standardPass("tm")});
+}
+function memberRow(m,t){
+  const ini = m.naam.split(" ").filter(w=>w[0]===w[0].toUpperCase()).map(w=>w[0]).slice(0,2).join("");
+  const r = m.slug && riders[m.slug];
+  const av = r && r.foto ? `<span class="avatar"><img src="${r.foto}" alt=""></span>` : `<span class="avatar">${ini}</span>`;
+  const sub = r ? `Fietsen · ${r.klims}× · ${adoptCount(r)} van 21 bochten geadopteerd` : `Fietsen · 21 bochten-pagina volgt`;
+  const href = r ? `href="#${r.slug}" data-go="${r.slug}"` : `href="https://inschrijving.opgevenisgeenoptie.nl/fundraisers/${m.url}/alpe-dhuzes" target="_blank" rel="noopener"`;
+  return `<a class="member" ${href}>${av}<div style="min-width:0"><b>${esc(m.naam)}</b>${m.captain?' <span class="pill acc" style="margin-left:6px">Captain</span>':""}<div class="muted" style="font-size:.85rem">${sub}</div><div class="bar" style="margin-top:8px;max-width:340px"><i style="width:${Math.min(100,m.opg/(t.doel/ (t.namen.length||1))*100)}%"></i></div></div><div style="text-align:right"><b class="num">${euro(m.opg)}</b><div class="muted" style="font-size:.78rem">${r?"Bekijk pagina":"Actiepagina"}</div></div></a>`;
+}
+function viewInvite(){
+  const r = riders[invite.slug], b = BENDS.find(x=>x.n===invite.n), until = new Date(Date.now()+7*864e5).toLocaleDateString("nl-NL",{day:"numeric",month:"long"});
+  return `<header class="rhero"><div class="wrap hero-grid">
+    <div>
+      <div class="who">${r.foto?`<span class="face"><img src="${r.foto}" alt=""></span>`:avatar(r)}<div><p class="eyebrow">Persoonlijke uitnodiging van ${esc(r.voornaam)}</p><b>Voor ${esc(invite.bedrijf)}</b> <span class="ex">voorbeeld</span></div></div>
+      <h1 style="margin-top:20px">${esc(invite.bedrijf)}, bocht ${b.n} ligt voor jullie klaar.</h1>
+      <p style="font-size:1.1rem;color:var(--muted);margin-top:14px;max-width:34em">${esc(r.voornaam)} fietst op 3 juni ${NUMWORD[r.klims]||r.klims} keer de Alpe d'Huez op voor KWF, en houdt bocht ${b.n} voor jullie vast tot ${until}. Rechts zie je wat jullie op de dag te zien krijgen.</p>
+      <div class="fact" style="margin-top:20px">${BENDINFO[b.n].nl?'<span class="badge-nl">NL-BOCHT</span>':""}<span class="eyebrow">Op het bord van bocht ${b.n}</span><span class="bord">${BENDINFO[b.n].bord}</span><span class="muted" style="font-size:.92rem">${BENDINFO[b.n].feit}</span></div>
+      <div class="cta"><button class="btn btn-primary" type="button" id="inv-go">Adopteer bocht ${b.n} voor ${euro(r.prijs)}</button><a class="btn btn-ghost" href="#${r.slug}" data-go="${r.slug}">Bekijk alle bochten</a></div>
+    </div>
+    ${mapBlock("iv", r, {chip:`Zo ziet het eruit voor ${esc(invite.bedrijf)}`})}
+  </div></header>`;
+}
+function viewLive(){
+  return `<header class="rhero" style="padding-bottom:0"><div class="wrap">
+    <div class="row"><div><p class="eyebrow">Simulatie van donderdag 3 juni 2027</p><h1 style="margin-top:12px;font-size:clamp(2rem,4.4vw,3.2rem)">De hele dag, live</h1></div><span class="pill hold">Gesimuleerde gegevens</span></div>
+    <p style="color:var(--muted);margin-top:12px;max-width:44em">Elke stip is een deelnemer op de echte weg. Volg een rijder om de passages te zien. Komt die langs een geadopteerde bocht, dan zie je het moment groot in beeld.</p>
+  </div></header>
+  <section class="block" style="padding-top:20px"><div class="wrap">
+    <div class="sim-grid">
+      <div class="card sim-stage">
+        <div class="controls">
+          <button class="btn btn-primary btn-sm" id="play">❚❚ Pauze</button>
+          <button class="btn btn-ghost btn-sm" id="reset">Opnieuw</button>
+          <div class="seg" role="group" aria-label="Snelheid"><button data-sp="0.0166667">Echte tijd</button><button data-sp="0.25">×15</button><button data-sp="0.5" aria-pressed="true">×30</button><button data-sp="1.5">×90</button><button data-sp="5">×300</button></div>
+          <span class="clock num" id="lvclock2">05:00</span>
+        </div>
+        <div class="seg" role="group" aria-label="Volg deelnemer" id="follow">${Object.values(riders).map((r,i)=>`<button data-r="${r.slug}" aria-pressed="${i===0}">${esc(r.voornaam)}</button>`).join("")}</div>
+        ${mapBlock("lv", riders.maurice, {chip:"Simulatie"})}
+        <div class="profile">${profileSVG("lp")}</div>
+        <div class="sim-stats"><div><b id="s-klim">1 / 6</b><span>beklimming</span></div><div><b id="s-hm" class="num">0 m</b><span>hoogtemeters</span></div><div><b id="s-km" class="num">0,0 km</b><span>afgelegd</span></div><div><b id="s-pas" class="num">0</b><span>passages</span></div></div>
+        <div class="climbs" id="s-climbs"></div>
+      </div>
+      <div class="card feed"><div class="row"><h3>Passages</h3><span class="muted" id="feed-who" style="font-size:.85rem"></span></div><ul id="feed"></ul></div>
+    </div>
+  </div></section>`;
+}
+function viewTV(){
+  const r = riders.maurice, d = r.bochten[2];
+  return `<div class="tv night"><div class="wrap">
+    <div class="tv-top"><div><p class="eyebrow">Kantoorscherm · simulatie</p><h2 style="margin-top:6px">${esc(d.b)} · Bocht 2</h2></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" id="tv-skip">Spoel door naar de volgende passage</button><a class="btn btn-ghost btn-sm" href="#maurice" data-go="maurice">Sluiten</a></div></div>
+    <div class="tv-grid">
+      ${mapBlock("tvm", r, {chip:"Live · simulatie"})}
+      <div class="tv-side">
+        <div class="tv-card"><p style="font-size:1.1rem;color:var(--muted)" id="tv-lead">${esc(r.voornaam)} is bij bocht 2 over</p><div class="tv-eta" id="tv-eta">--:--</div><p id="tv-where"></p></div>
+        <div class="tv-card"><b>Passages bij bocht 2</b><div class="tv-pass" id="tv-pass"></div><p style="font-size:.88rem;color:var(--muted)">Vijf minuten voor elke passage gaat er een seintje naar jullie Teams-kanaal.</p></div>
+      </div>
+    </div>
+  </div></div>`;
+}
+
+let wz = {step:1, data:{url:"https://inschrijving.opgevenisgeenoptie.nl/fundraisers/PietdeVries/alpe-dhuzes",naam:"Piet de Vries",disc:"Fietsen",klims:"3",doel:"5250",prijs:"250",team:"bestaand",teamnaam:"Team Voorbeeld Oss",toon:true}};
+function viewAanmelden(){
+  const s = wz.step, d = wz.data;
+  const steps = `<div class="steps" aria-label="Stap ${Math.min(s,4)} van 4">${[1,2,3,4].map(i=>`<i class="${i<=s?"on":""}"></i>`).join("")}</div>`;
+  const hint = () => `Voorstel: je doel van ${euro(+d.doel)} gedeeld door 21, afgerond. 21 bochten leveren dan ${euro(21*(+d.prijs||0))} op.`;
+  let body = "";
+  if(s===1) body = `<div><p class="eyebrow">Stap 1 van 4</p><h2 style="margin-top:6px">Plak je actiepagina</h2><p class="muted" style="margin-top:8px">De link naar je eigen pagina bij Alpe d'HuZes. Daar komt al het geld binnen; wij lezen alleen mee.</p></div>
+    <form class="form" id="wf"><label for="w-url">Link naar je actiepagina<input id="w-url" type="url" required value="${esc(d.url)}"><small>Begint met inschrijving.opgevenisgeenoptie.nl/fundraisers/</small></label>
+    <div class="card" style="padding:16px;display:flex;gap:12px;align-items:center;box-shadow:none"><span class="avatar">PV</span><div><b>${esc(d.naam)}</b> <span class="ex">voorbeeld</span><div class="muted" style="font-size:.85rem">Gevonden: ${euro(2750)} opgehaald · doel ${euro(5250)} · verhaal</div></div></div>
+    <div class="wnav"><span></span><button class="btn btn-primary" type="submit">Verder</button></div></form>`;
+  if(s===2) body = `<div><p class="eyebrow">Stap 2 van 4</p><h2 style="margin-top:6px">Jouw klim</h2></div>
+    <form class="form" id="wf"><label for="w-naam">Naam op je pagina<input id="w-naam" required value="${esc(d.naam)}"></label>
+      <div><b style="font-size:.92rem">Hoe ga je naar boven?</b><div class="choice" style="margin-top:8px">${["Fietsen","Lopen","Wandelen"].map(x=>`<label><input type="radio" name="disc" value="${x}" ${d.disc===x?"checked":""}>${x}</label>`).join("")}</div></div>
+      <label for="w-klims">Aantal beklimmingen<select id="w-klims">${[1,2,3,4,5,6].map(n=>`<option ${String(n)===d.klims?"selected":""}>${n}</option>`).join("")}</select></label>
+      <label for="w-prijs">Prijs per bocht voor bedrijven<input id="w-prijs" type="number" min="25" step="25" value="${esc(d.prijs)}"><small id="w-hint">${hint()}</small></label>
+      <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" id="w-part" style="width:auto;accent-color:var(--accent)" checked> Particulieren mogen ook een bocht nemen, voor € 100</label>
+      <div class="wnav"><button class="btn btn-ghost" type="button" data-back>Terug</button><button class="btn btn-primary" type="submit">Verder</button></div></form>`;
+  if(s===3) body = `<div><p class="eyebrow">Stap 3 van 4</p><h2 style="margin-top:6px">Doe je mee met een team?</h2></div>
+    <form class="form" id="wf"><div class="choice">${[["geen","Nee, alleen"],["bestaand","Bestaand team"],["nieuw","Nieuw team"]].map(([v,l])=>`<label><input type="radio" name="team" value="${v}" ${d.team===v?"checked":""}>${l}</label>`).join("")}</div>
+      <label for="w-team">Teamnaam<input id="w-team" value="${esc(d.teamnaam)}" list="teamlist"><datalist id="teamlist"><option>Team Voorbeeld Oss</option></datalist></label>
+      <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" id="w-toon" style="width:auto;accent-color:var(--accent)" ${d.toon?"checked":""}> Toon de teamnaam op mijn pagina</label>
+      <small class="muted">Zet je dit uit, dan telt je pagina wel mee voor het team, maar staat de naam niet bij jou.</small>
+      <div class="wnav"><button class="btn btn-ghost" type="button" data-back>Terug</button><button class="btn btn-primary" type="submit">Verder</button></div></form>`;
+  if(s===4) body = `<div><p class="eyebrow">Stap 4 van 4</p><h2 style="margin-top:6px">Laat zien dat het jouw pagina is</h2><p class="muted" style="margin-top:8px">Zet deze code ergens in je verhaal op je actiepagina. Binnen 15 minuten zien wij de code, daarna mag die er weer uit.</p></div>
+    <div class="code">21B-7KQ4</div>
+    <form class="form" id="wf"><label for="w-mail">Je e-mail, voor je beheerscherm<input id="w-mail" type="email" required value="piet@voorbeeld.nl"></label>
+    <div class="wnav"><button class="btn btn-ghost" type="button" data-back>Terug</button><button class="btn btn-primary" type="submit">Maak mijn pagina</button></div></form>`;
+  if(s===5) body = `<div style="text-align:center;display:grid;gap:12px;justify-items:center"><span class="pill ok">Klaar</span><h2>Je pagina staat online</h2><p class="muted">21bochten.nl/piet-de-vries</p>
+    <div class="cta" style="justify-content:center"><a class="btn btn-primary" href="#piet" data-go="piet">Bekijk je pagina</a><button class="btn btn-ghost" type="button" data-restart>Opnieuw</button></div></div>`;
+  return `<section class="block"><div class="wrap"><div class="card wizard">${steps}${body}</div></div></section>`;
+}
+
+/* ---------- Router ---------- */
+let current = "";
+const sheet=document.getElementById("sheet"), scrim=document.getElementById("scrim");
+function go(v){
+  if(!v || !(v in riders || v in teams || ["home","live","aanmelden","tv","uitnodiging"].includes(v))) v = "home";
+  stopRunners(); sheet.hidden=true; scrim.hidden=true;
+  current = v;
+  let html;
+  if(riders[v]) html = viewRider(riders[v]); else if(teams[v]) html = viewTeam(teams[v]);
+  else if(v==="live") html = viewLive(); else if(v==="aanmelden") html = viewAanmelden(); else if(v==="tv") html = viewTV(); else if(v==="uitnodiging") html = viewInvite(); else html = viewHome();
+  app.innerHTML = `<div class="view">${html}</div>`;
+  document.querySelectorAll(".nav-links a").forEach(a=>a.setAttribute("aria-current", a.dataset.go===v || ((v==="piet"||v==="sanne")&&a.dataset.go==="home") ? "page":"false"));
+  wire(v);
+}
+document.addEventListener("click",e=>{
+  const s = e.target.closest("[data-scroll]"); if(s){ e.preventDefault(); document.getElementById(s.dataset.scroll)?.scrollIntoView(); return; }
+  const a = e.target.closest("[data-go]"); if(!a) return;
+  e.preventDefault(); const v=a.dataset.go;
+  try{ history.replaceState(null,"","#"+v) }catch(_){}
+  go(v); window.scrollTo({top:0});
+});
+window.addEventListener("hashchange",()=>{ const h=location.hash.slice(1); if(h && h!==current && h!=="bord") go(h) });
+
+function demoRunner(id, r){
+  const first = schedule(r,0)[0];
+  return makeRunner({id, list:[{r,offset:0}], follow:r.slug, t:first.s-1, speed:.7, loop:true, onPass:standardPass(id)});
+}
+function wire(v){
+  if(v==="home") demoRunner("hm", riders.maurice);
+  if(riders[v]){
+    const r = riders[v];
+    demoRunner("rm", r);
+    app.querySelectorAll("[data-bend]").forEach(b=>b.addEventListener("click",()=>openBend(r,+b.dataset.bend)));
+    app.querySelectorAll("#bmwrap .pm").forEach(g=>{ const n=+g.dataset.n; g.addEventListener("click",()=>openBend(r,n)); g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openBend(r,n)}}); });
+  }
+  if(v==="live") initSim();
+  if(v==="tv") initTV();
+  if(v==="uitnodiging"){
+    const r = riders[invite.slug], preview = {...r, bochten:{...r.bochten, [invite.n]:{s:"geadopteerd", b:invite.bedrijf}}};
+    const first = schedule(r,0)[0], bk = BENDS.find(x=>x.n===invite.n);
+    makeRunner({id:"iv", list:[{r:preview,offset:0}], follow:r.slug, t:first.s + (Math.max(0,bk.km-1.2)/KM)*first.up, speed:.6, loop:true, onPass:standardPass("iv")});
+    const g=document.getElementById("ivb"+invite.n); if(g){ const [x,y]=proj(bk.lat,bk.lon), [ax,ay]=XY(bk.km-.07), [bx,by]=XY(bk.km+.07); let dx=x-(ax+bx)/2, dy=y-(ay+by)/2; const L=Math.hypot(dx,dy)||1; dx/=L; dy/=L;
+      g.querySelector("circle.mk").setAttribute("fill","var(--accent)"); g.insertAdjacentHTML("afterbegin", mapLabel(bk, {b:invite.bedrijf}, "geadopteerd", x, y, dx, dy)); }
+    document.getElementById("inv-go").addEventListener("click",()=>openBend(r, invite.n));
+  }
+  if(riders[v]) wireKit(riders[v]);
+  if(teams[v]) wireTeam(teams[v]);
+  if(teams[v] && teams[v].namen) teamDemo(teams[v]);
+  if(v==="aanmelden"){
+    const f = app.querySelector("#wf");
+    f && f.addEventListener("submit",e=>{e.preventDefault(); saveStep(); wz.step++; go("aanmelden"); window.scrollTo({top:0})});
+    app.querySelector("[data-back]")?.addEventListener("click",()=>{saveStep(); wz.step--; go("aanmelden")});
+    app.querySelector("[data-restart]")?.addEventListener("click",()=>{wz.step=1; go("aanmelden")});
+    app.querySelector("#w-prijs")?.addEventListener("input",ev=>{ wz.data.prijs=ev.target.value; app.querySelector("#w-hint").textContent=`Voorstel: je doel van ${euro(+wz.data.doel)} gedeeld door 21, afgerond. 21 bochten leveren dan ${euro(21*(+ev.target.value||0))} op.`});
+  }
+}
+function wireKit(r){
+  app.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyText(b.dataset.copy,b)));
+  app.querySelectorAll("[data-copy-from]").forEach(b=>b.addEventListener("click",()=>copyText(document.getElementById(b.dataset.copyFrom).value,b)));
+  const q=document.getElementById("kit-qr"); if(q && window.QRCode){ try{ new QRCode(q,{text:"https://21bochten.nl/"+r.slug,width:112,height:112,colorDark:"#0D1828",colorLight:"#ffffff"}); }catch(_){} }
+  document.getElementById("inv")?.addEventListener("submit",e=>{ e.preventDefault();
+    invite = {slug:r.slug, bedrijf:document.getElementById("inv-b").value.trim()||"jullie bedrijf", n:+document.getElementById("inv-n").value, door:r.voornaam};
+    try{ history.replaceState(null,"","#uitnodiging") }catch(_){}
+    go("uitnodiging"); window.scrollTo({top:0}); toast(`Link: 21bochten.nl/${r.slug}/voor/${invite.bedrijf.toLowerCase().replace(/[^a-z0-9]+/g,"-")}`); });
+}
+function wireTeam(t){
+  const sel=document.getElementById("tb-n"), out=document.getElementById("tb-out"); if(!sel) return;
+  const draw=()=>{ const n=+sel.value, ls=t.leden.map(s=>riders[s]), free=ls.filter(r=>status(r,n)==="vrij"), taken=ls.filter(r=>status(r,n)!=="vrij"), later=(t.namen||[]).filter(m=>!m.slug);
+    const sum=free.reduce((s,r)=>s+r.prijs,0), pas=free.reduce((s,r)=>s+r.klims,0);
+    out.innerHTML = `<div class="tb-sum"><div><b class="num">${free.length}</b><span>teamleden met bocht ${n} vrij</span></div><div><b class="num">${pas}</b><span>live momenten op 3 juni</span></div><div><b class="num">${euro(sum)}</b><span>totaal, verdeeld over hun eigen acties</span></div></div>
+      ${later.length?`<p class="muted" style="font-size:.9rem;margin-top:10px">Plus ${later.length} teamgenoten zodra hun pagina staat: ${later.map(m=>esc(m.naam.split(" ")[0])).join(", ")}. Zij kiezen zelf hun prijs per bocht.</p>`:""}
+      <ul class="tb-list">${free.map(r=>`<li>${avatar(r)}<span><b>${esc(r.naam)}</b> · ${euro(r.prijs)} naar de eigen actiepagina · ${r.klims}×</span></li>`).join("")}${taken.map(r=>`<li style="opacity:.55">${avatar(r)}<span><b>${esc(r.naam)}</b> · bocht ${n} is al vergeven</span></li>`).join("")}</ul>
+      <button class="btn btn-primary" type="button" id="tb-go" ${free.length?"":"disabled"}>Reserveer bocht ${n} bij ${free.length} teamleden</button>`;
+    document.getElementById("tb-go")?.addEventListener("click",()=>toast(`In de echte site krijg je per teamlid een eigen betaalstap naar de actiepagina van die rijder`)); };
+  sel.addEventListener("change",draw); draw();
+}
+function copyText(txt, btn){
+  Promise.resolve(navigator.clipboard && navigator.clipboard.writeText(txt)).then(()=>{ const o=btn.textContent; btn.textContent="Gekopieerd"; setTimeout(()=>btn.textContent=o,1500); }).catch(()=>toast("Kopiëren lukt hier niet; selecteer de tekst zelf"));
+}
+function saveStep(){
+  const q = s => app.querySelector(s), d = wz.data;
+  if(q("#w-url")) d.url=q("#w-url").value;
+  if(q("#w-naam")) d.naam=q("#w-naam").value;
+  const disc=q('input[name="disc"]:checked'); if(disc) d.disc=disc.value;
+  if(q("#w-klims")) d.klims=q("#w-klims").value;
+  if(q("#w-prijs")) d.prijs=q("#w-prijs").value;
+  const t=q('input[name="team"]:checked'); if(t) d.team=t.value;
+  if(q("#w-team")) d.teamnaam=q("#w-team").value;
+  if(q("#w-toon")) d.toon=q("#w-toon").checked;
+}
+
+/* ---------- Simulator ---------- */
+function initSim(){
+  const list = Object.values(riders).map((r,i)=>({r, offset:i*4}));
+  const passes = {}; list.forEach(it=>passes[it.r.slug]=[]);
+  const hm = {}; list.forEach(it=>hm[it.r.slug]={v:0,last:0});
+  const feed = () => {
+    const it = list.find(x=>x.r.slug===run.st.follow), ul=document.getElementById("feed"); if(!ul) return;
+    document.getElementById("feed-who").textContent = it.r.naam;
+    const ps = passes[it.r.slug];
+    ul.innerHTML = ps.length ? ps.slice(0,40).map(p=>{ const d=it.r.bochten[p.n], sp=d&&d.s==="geadopteerd";
+      return `<li class="${sp?"sp":""}"><b>${p.n}</b><span>${sp?esc(d.b):"Bocht "+p.n} <span class="muted">· klim ${p.klim}</span></span><time>${fmt(p.t)}</time></li>`; }).join("")
+      : `<li style="grid-template-columns:1fr;animation:none"><span class="muted">De eerste beklimming begint om 05:00.</span></li>`;
+  };
+  const run = makeRunner({id:"lv", list, follow:"maurice", t:START-1, speed:.5,
+    onPass:(it,b,klim,t,st)=>{ passes[it.r.slug].unshift({n:b.n,klim,t}); if(it.r.slug===st.follow){ standardPass("lv")(it,b,klim,t,st); feed(); } },
+    onNotice:(it,b,klim)=>toast(`Seintje aan ${it.r.bochten[b.n].b}: ${it.r.voornaam} is over 5 minuten bij bocht ${b.n}`),
+    onFrame:(st,p,it)=>{
+      const set=(k,v)=>{const e=document.getElementById(k); if(e) e.textContent=v;};
+      set("lvclock2", fmt(st.t));
+      // hoogtemeters: som van stijgingen per klim, deterministisch uit het schema
+      const sc = schedule(it.r,it.offset); let tot=0; sc.forEach(c=>{ if(st.t>=c.top) tot+=ALT1-ALT0; else if(st.t>c.s) tot+=altAt(KM*(st.t-c.s)/c.up)-ALT0; });
+      const dist = sc.reduce((s,c)=>{ if(st.t<=c.s) return s; const upd=Math.min(1,(st.t-c.s)/c.up)*KM; const ds=c.top+TOP_WAIT; const dnd=st.t>ds?Math.min(1,(st.t-ds)/c.down)*KM:0; return s+upd+dnd; },0);
+      set("s-klim", `${p.klim} / ${it.r.klims}`); set("s-hm", Math.round(tot).toLocaleString("nl-NL")+" m"); set("s-km", km1(dist)+" km"); set("s-pas", passes[it.r.slug].length);
+      const cl=document.getElementById("s-climbs"); if(cl) cl.innerHTML = Array.from({length:it.r.klims},(_,i)=>{const k=i+1, c=(k<p.klim||p.klaar)?"done":(k===p.klim&&!p.wacht)?"now":""; return `<i class="${c}">${k}</i>`}).join("");
+      const pr=document.getElementById("lppr"); if(pr){ const w=1000,pl=40,prr=14,pt=14,pb=24,h=150; pr.innerHTML = list.map(x=>{ const q=posAt(x.r,x.offset,st.t); const X=pl+(q.km/KM)*(w-pl-prr), Y=pt+(1-(altAt(q.km)-ALT0)/(ALT1-ALT0))*(h-pt-pb); return `<circle cx="${X}" cy="${Y}" r="${x.r.slug===st.follow?7:5}" fill="${COLOURS[x.r.slug]}" stroke="#070C16" stroke-width="2"/>`; }).join(""); }
+    }});
+  feed();
+  const play=document.getElementById("play");
+  play.addEventListener("click",()=>{ run.st.running=!run.st.running; play.textContent = run.st.running?"❚❚ Pauze":"▶ Verder"; });
+  document.getElementById("reset").addEventListener("click",()=>go("live"));
+  app.querySelectorAll("[data-sp]").forEach(b=>b.addEventListener("click",()=>{ run.st.speed=+b.dataset.sp; app.querySelectorAll("[data-sp]").forEach(x=>x.setAttribute("aria-pressed",x===b)); }));
+  app.querySelectorAll("#follow [data-r]").forEach(b=>b.addEventListener("click",()=>{
+    run.setFollow(b.dataset.r); app.querySelectorAll("#follow [data-r]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    // bochtkleuren van de gevolgde deelnemer
+    const r=riders[b.dataset.r]; BENDS.forEach(bd=>{ const g=document.getElementById("lvb"+bd.n); if(!g) return; const st=status(r,bd.n);
+      g.querySelector("circle.mk").setAttribute("fill", st==="geadopteerd"?"var(--ok)":st==="gereserveerd"?"var(--hold)":"var(--bg2)");
+      g.querySelector(".lbl")?.remove();
+      { const [x,y]=proj(bd.lat,bd.lon), [ax,ay]=XY(bd.km-.07), [bx,by]=XY(bd.km+.07); let dx=x-(ax+bx)/2, dy=y-(ay+by)/2; const L=Math.hypot(dx,dy)||1; dx/=L; dy/=L;
+        g.insertAdjacentHTML("afterbegin", mapLabel(bd, r.bochten[bd.n], st, x, y, dx, dy)); }
+      g.querySelector("text:not(.mk-label)").setAttribute("fill", st==="vrij"?"var(--ink)":"#0A111C"); });
+    feed();
+  }));
+}
+
+/* ---------- Kantoorscherm ---------- */
+function initTV(){
+  const r = riders.maurice, b = BENDS.find(x=>x.n===2), d=r.bochten[2];
+  const passT = schedule(r,0).map(c => c.s + (b.km/KM)*c.up);
+  const run = makeRunner({id:"tvm", list:[{r,offset:0}], follow:"maurice", t:passT[0]-4, speed:.35,
+    onPass:(it,bd,klim,t,st)=>{ flashBend("tvm",bd.n); if(bd.n===2) showMoment("tvm",r,bd,klim,t); },
+    onNotice:(it,bd)=>{ if(bd.n===2) toast(`Seintje in Teams: ${r.voornaam} is over 5 minuten bij bocht 2`); },
+    onFrame:(st,p)=>{
+      const nxt = passT.find(x=>x>st.t), set=(k,v)=>{const e=document.getElementById(k); if(e) e.innerHTML=v;};
+      if(nxt!==undefined){ const m=nxt-st.t, mm=Math.floor(m), ss=Math.floor((m-mm)*60);
+        set("tv-lead", `${r.voornaam} is bij bocht 2 over`); set("tv-eta", String(mm).padStart(2,"0")+":"+String(ss).padStart(2,"0")); }
+      else { set("tv-lead","Alle passages zijn geweest"); set("tv-eta", `${r.klims} / ${r.klims}`); }
+      set("tv-where", p.wacht?`Klaar voor klim ${p.klim} in Bourg-d'Oisans`:p.dir>0?`Klim ${p.klim} van ${r.klims} · km ${km1(p.km)} · ${Math.round(altAt(p.km))} m`:p.dir<0?`Afdaling na klim ${p.klim}`:`Op de top na klim ${p.klim}`);
+      set("tv-pass", passT.map((x,i)=>`<div class="${x<=st.t?"done":""}"><b>${x<=st.t?fmt(x):"--:--"}</b>Klim ${i+1}</div>`).join(""));
+    }});
+  document.getElementById("tv-skip").addEventListener("click",()=>{ const nxt = passT.find(p=>p>run.st.t+0.5); if(nxt){ run.st.t = nxt - 1.2; run.st.last={}; } });
+}
+
+/* ---------- Feedback ---------- */
+const FB_KEY = "21b-feedback";
+function fbLoad(){ try{ return JSON.parse(localStorage.getItem(FB_KEY)||"{}") }catch(_){ return {} } }
+function fbSave(d){ try{ localStorage.setItem(FB_KEY, JSON.stringify(d)) }catch(_){} }
+function fbText(d){
+  const ja = {ja:"Ja", nee:"Nee", weet:"Weet ik nog niet"}[d.mee] || "Niet ingevuld";
+  return `Feedback op 21 bochten${d.naam?` van ${d.naam}`:""}\n\nEigen pagina: ${ja}\n\nBedrijven die ik ken:\n${d.bedrijven||"-"}\n\nWat ik mooi vind:\n${d.mooi||"-"}\n\nWat anders moet:\n${d.anders||"-"}`;
+}
+function openFeedback(){
+  lastFocus=document.activeElement;
+  const d = fbLoad();
+  sheet.innerHTML = `<div class="sheet-head"><div><p class="eyebrow">Ontwerp 21 bochten</p><h3 id="sheet-title" style="font-size:2rem">Wat vind je ervan?</h3></div><button class="close" id="x" aria-label="Sluiten">×</button></div>
+    <p class="muted">Vier korte vragen. Daarna zet je knop je antwoord klaar in WhatsApp, en stuur je het naar Maurice.</p>
+    <form class="form" id="fb">
+      <label for="fb-naam">Je naam<input id="fb-naam" autocomplete="name" value="${esc(d.naam||"")}"></label>
+      <div class="fb-q"><b>Wil je zelf een pagina met 21 bochten?</b><div class="choice">${[["ja","Ja"],["nee","Nee"],["weet","Weet ik nog niet"]].map(([v,l])=>`<label><input type="radio" name="fb-mee" value="${v}" ${d.mee===v?"checked":""}>${l}</label>`).join("")}</div></div>
+      <label class="fb-q" for="fb-bedrijven"><b>Welke bedrijven ken jij die een bocht willen?</b><small>Je eigen werkgever telt ook. Eén per regel.</small><textarea id="fb-bedrijven" rows="3">${esc(d.bedrijven||"")}</textarea></label>
+      <label class="fb-q" for="fb-mooi"><b>Wat vind je mooi?</b><textarea id="fb-mooi" rows="2">${esc(d.mooi||"")}</textarea></label>
+      <label class="fb-q" for="fb-anders"><b>Wat moet anders?</b><textarea id="fb-anders" rows="2">${esc(d.anders||"")}</textarea></label>
+      <button class="btn btn-primary" type="submit">Stuur via WhatsApp</button>
+      <button class="btn btn-ghost" type="button" id="fb-copy">Of kopieer de tekst</button>
+    </form>`;
+  const read = () => ({naam:sheet.querySelector("#fb-naam").value.trim(), mee:(sheet.querySelector('input[name="fb-mee"]:checked')||{}).value, bedrijven:sheet.querySelector("#fb-bedrijven").value.trim(), mooi:sheet.querySelector("#fb-mooi").value.trim(), anders:sheet.querySelector("#fb-anders").value.trim()});
+  sheet.querySelector("#fb").addEventListener("input",()=>fbSave(read()));
+  sheet.querySelector("#fb").addEventListener("submit",e=>{ e.preventDefault(); const t=fbText(read()); fbSave(read());
+    const a=document.createElement("a"); a.href="https://wa.me/?text="+encodeURIComponent(t); a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
+    toast("WhatsApp opent. Kies Maurice en druk op versturen."); });
+  sheet.querySelector("#fb-copy").addEventListener("click",ev=>copyText(fbText(read()), ev.currentTarget));
+  sheet.querySelector("#x").addEventListener("click",closeSheet);
+  scrim.hidden=false; sheet.hidden=false; sheet.querySelector("#fb-naam").focus();
+}
+document.getElementById("fb-open").addEventListener("click",openFeedback);
+
+/* ---------- Bochtpaneel ---------- */
+let lastFocus=null;
+function closeSheet(){sheet.hidden=true;scrim.hidden=true;lastFocus&&lastFocus.focus()}
+scrim.addEventListener("click",closeSheet);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sheet.hidden)closeSheet()});
+function shareImg(r,b,d){
+  return `<div class="share"><svg viewBox="0 0 600 314" role="img" aria-label="Deelbeeld voor LinkedIn">
+    <rect width="600" height="314" fill="#070C16"/>
+    <path d="${ROUTE_D}" transform="translate(330,10) scale(.27)" fill="none" stroke="#FF6B33" stroke-width="14" stroke-linejoin="round" opacity=".9"/>
+    <text x="32" y="58" font-family="var(--mono)" font-size="13" fill="#8C9AB0">ALPE D'HUZES · 3 JUNI 2027</text>
+    <text x="32" y="150" font-family="var(--display)" font-weight="900" font-size="78" fill="#FF6B33">Bocht ${b.n}</text>
+    <text x="32" y="196" font-family="var(--body)" font-weight="800" font-size="22" fill="#F2F5FA">${sponsorLine(d)}</text>
+    ${d.logo?`<rect x="510" y="236" width="60" height="60" rx="14" fill="${d.dark?"#0D1828":"#fff"}"/><image href="${d.logo}" x="518" y="244" width="44" height="44"/>`:""}
+    <text x="32" y="226" font-family="var(--body)" font-size="16" fill="#8C9AB0">${esc(r.voornaam)} komt hier ${r.klims} keer langs. Op het bord: ${BENDINFO[b.n].bord}.</text>
+    <text x="32" y="284" font-family="var(--mono)" font-size="12" fill="#8C9AB0">21bochten.nl/${r.slug}/bocht/${b.n}</text></svg></div>`;
+}
+function openBend(r,n){
+  lastFocus=document.activeElement;
+  const b=BENDS.find(x=>x.n===n), st=status(r,n), d=r.bochten[n]||{};
+  const head=`<div class="sheet-head"><div><p class="eyebrow">${esc(r.naam)} · Alpe d'Huez</p><h3 id="sheet-title">Bocht ${n}</h3></div><button class="close" id="x" aria-label="Sluiten">×</button></div>
+    <div class="facts3"><div><b>km ${km1(b.km)}</b><span>vanaf de start</span></div><div><b>${b.alt} m</b><span>hoogte</span></div><div><b>${r.klims}×</b><span>passages</span></div></div>
+    <div class="fact">${BENDINFO[n].dc?'<span class="badge-nl">DUTCH CORNER</span>':BENDINFO[n].nl?'<span class="badge-nl">NL-BOCHT</span>':""}<span class="eyebrow">Op het bord</span><span class="bord">${BENDINFO[n].bord}</span><span class="muted" style="font-size:.92rem">${BENDINFO[n].feit}</span></div>`;
+  const slots=`<div><p style="font-weight:800;margin-bottom:10px">Passages op 3 juni</p><div class="slots">${Array.from({length:r.klims},(_,k)=>`<div><b>Klim ${k+1}</b>volgt</div>`).join("")}</div></div>`;
+  if(st==="vrij"){
+    const pp = r.particulier;
+    sheet.innerHTML=head+`<span class="pill" style="justify-self:start">Vrij</span>
+    <form class="form" id="f">
+      ${pp?`<div class="typeseg" role="radiogroup" aria-label="Ik adopteer als"><label><input type="radio" name="ft" value="b" checked>Bedrijf<span>${euro(r.prijs)} · naam en logo, 2 shirts, Bedrijfsscan</span></label><label><input type="radio" name="ft" value="p">Particulier<span>${euro(pp.prijs)} · je naam, en voor wie je klimt</span></label></div>`:`<p class="muted" style="font-size:.9rem">Een bocht kost ${euro(r.prijs)}.</p>`}
+      <label for="f-b"><span id="f-bl">Bedrijfsnaam</span><input id="f-b" required autocomplete="organization" value="Voorbeeld Bouw BV"></label>
+      <label for="f-v" id="f-vw" hidden>Voor wie? <small>Mag leeg. Staat bij je bocht, bijvoorbeeld "Voor opa Henk".</small><input id="f-v" value="Voor opa Henk"></label>
+      <label for="f-n">Je naam<input id="f-n" required autocomplete="name" value="Sanne de Wit"></label>
+      <label for="f-m">E-mail<input id="f-m" type="email" required autocomplete="email" value="sanne@voorbeeldbouw.nl"></label>
+      <label for="f-l" id="f-lw">Logo <small>PNG, SVG of JPG, maximaal 2 MB. Mag ook later.</small><input id="f-l" type="file" accept=".png,.svg,.jpg,.jpeg"></label>
+      <button class="btn btn-primary" type="submit" id="f-sub">Reserveer bocht ${n} voor ${euro(r.prijs)}</button>
+      <small>We gebruiken je gegevens om je bocht te regelen, voor de mail na de rit en voor een uitnodiging van Elusive Innovations voor een Bedrijfsscan en de AI-ochtend. Afmelden kan altijd. Op 1 oktober 2027 wissen we alles.</small>
+    </form>`+slots;
+    const typeOf = () => sheet.querySelector('input[name="ft"]:checked')?.value || "b";
+    sheet.querySelectorAll('input[name="ft"]').forEach(i=>i.addEventListener("change",()=>{
+      const p = typeOf()==="p"; sheet.querySelector("#f-bl").textContent = p ? "Naam bij de bocht" : "Bedrijfsnaam";
+      sheet.querySelector("#f-b").value = p ? "Familie de Wit" : "Voorbeeld Bouw BV"; sheet.querySelector("#f-vw").hidden = !p;
+      sheet.querySelector("#f-lw").hidden = p; sheet.querySelector("#f-sub").textContent = `Reserveer bocht ${n} voor ${euro(p?pp.prijs:r.prijs)}`; }));
+    sheet.querySelector("#f").addEventListener("submit",e=>{
+      e.preventDefault();
+      const isP = typeOf()==="p", prijs = isP ? pp.prijs : r.prijs;
+      const naam=sheet.querySelector("#f-b").value.trim()||"je naam";
+      r.bochten[n]={s:"gereserveerd",v:1}; go(current);
+      lastFocus=null;
+      sheet.innerHTML=`<div class="sheet-head"><div><p class="eyebrow">${esc(r.naam)}</p><h3 id="sheet-title">Bocht ${n}</h3></div><button class="close" id="x" aria-label="Sluiten">×</button></div>
+      <span class="pill hold" style="justify-self:start">Vastgehouden voor ${esc(naam)}</span><p>Nog één stap. We hebben je deze stappen ook gemaild.</p>
+      <ol class="instr">
+        <li><div>Open de actiepagina van ${esc(r.voornaam)}.<div class="copy"><a class="btn btn-primary btn-sm" href="${r.actie}" target="_blank" rel="noopener">Naar de actiepagina</a></div></div></li>
+        <li><div>Kies "Ander bedrag" en vul <b>${euro(prijs)}</b> in.</div></li>
+        ${isP?`<li><div>Kies "Persoonlijk" en vul je naam in.</div></li>`:`<li><div>Kies "Organisatie" en vul <b>${esc(naam)}</b> in.</div></li>`}
+        <li><div>Zet dit in het bericht:<div class="copy"><code id="code">Bocht ${n}</code><button class="btn btn-ghost btn-sm" type="button" id="cp">Kopieer</button></div></div></li>
+      </ol>
+      <p class="muted" style="font-size:.88rem">Betaal je per factuur, dan verschijnt je donatie pas na verwerking, tot vier weken later. Je bocht blijft zolang voor jou vastgehouden.</p>`;
+      scrim.hidden=false; sheet.hidden=false;
+      sheet.querySelector("#x").addEventListener("click",closeSheet);
+      sheet.querySelector("#cp").addEventListener("click",ev=>{const btn=ev.currentTarget;
+        Promise.resolve(navigator.clipboard&&navigator.clipboard.writeText(`Bocht ${n}`)).then(()=>{btn.textContent="Gekopieerd"}).catch(()=>{const rg=document.createRange();rg.selectNode(sheet.querySelector("#code"));getSelection().removeAllRanges();getSelection().addRange(rg)})});
+    });
+  } else if(st==="gereserveerd"){
+    sheet.innerHTML=head+`<span class="pill hold" style="justify-self:start">Gereserveerd</span><p>Deze bocht is gereserveerd. Zodra de donatie binnen is, staat hier de naam van de sponsor.</p>`+slots;
+  } else {
+    sheet.innerHTML=head+`<div style="display:flex;gap:10px;align-items:center">${logoChip(d)}<span class="pill ok">Geadopteerd door ${sponsorLine(d)}</span></div>${d.m?`<p style="font-size:1.1rem">“${esc(d.m)}”</p>`:""}`+slots+
+    `<div class="card" style="padding:16px;box-shadow:none;display:grid;gap:10px"><b>Raad de tijd</b><span class="muted" style="font-size:.9rem">Hoe laat komt ${esc(r.voornaam)} in klim ${r.klims} langs bocht ${n}?</span>
+      <form class="guess" id="g"><label for="g-t" class="muted" style="font-size:.85rem">Tijd</label><input id="g-t" type="time" value="14:35" required><button class="btn btn-dark btn-sm" type="submit">Voorspel</button></form></div>
+    <div class="card" style="padding:16px;box-shadow:none;display:grid;gap:10px"><b>Seintje 5 minuten vooraf</b>
+      <div class="seg" role="group" aria-label="Kanaal">${["Teams","Slack","WhatsApp","E-mail"].map((c,i)=>`<button type="button" aria-pressed="${i===0}" data-ch>${c}</button>`).join("")}</div></div>
+    <div class="cta" style="margin-top:0"><a class="btn btn-primary btn-sm" href="#tv" data-go="tv">Open kantoorscherm</a><button class="btn btn-ghost btn-sm" type="button" id="strava">Klim mee op Strava</button></div>
+    <div><p style="font-weight:800;margin-bottom:10px">Deelbeeld</p>${shareImg(r,b,d)}</div>`;
+    sheet.querySelector("#g").addEventListener("submit",e=>{e.preventDefault(); const v=sheet.querySelector("#g-t").value; e.currentTarget.innerHTML=`<span class="pill ok">Jouw voorspelling: ${esc(v)}. De uitslag volgt op 3 juni.</span>`;});
+    sheet.querySelectorAll("[data-ch]").forEach(x=>x.addEventListener("click",()=>sheet.querySelectorAll("[data-ch]").forEach(y=>y.setAttribute("aria-pressed",y===x))));
+    sheet.querySelector("#strava").addEventListener("click",()=>toast(`In de echte site opent dit de Strava-club van ${d.b}`));
+  }
+  sheet.querySelector("#x").addEventListener("click",closeSheet);
+  scrim.hidden=false; sheet.hidden=false; sheet.querySelector("#x").focus();
+}
+
+go((location.hash||"#dpmm").slice(1));
+</script>
+
+</body>
+</html>
