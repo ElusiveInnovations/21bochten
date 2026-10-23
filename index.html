@@ -1106,14 +1106,14 @@ function openFeedback(){
       <label class="fb-q" for="fb-mooi"><b>Wat vind je mooi?</b><textarea id="fb-mooi" rows="2">${esc(d.mooi||"")}</textarea></label>
       <label class="fb-q" for="fb-anders"><b>Wat moet anders?</b><textarea id="fb-anders" rows="2">${esc(d.anders||"")}</textarea></label>
       <button class="btn btn-primary" type="submit">Mail naar Maurice</button>
-      <small class="muted">Opent je mail niet? Mail dan naar <b style="user-select:all">info@elusiveinnovations.com</b> en plak de tekst erin.</small>
+      <small class="muted">Opent je mail niet? Mail dan naar <b style="user-select:all">maurice@elusiveinnovations.com</b> en plak de tekst erin.</small>
       <button class="btn btn-ghost" type="button" id="fb-copy">Of kopieer de tekst</button>
     </form>`;
   const read = () => ({naam:sheet.querySelector("#fb-naam").value.trim(), mee:(sheet.querySelector('input[name="fb-mee"]:checked')||{}).value, bedrijven:sheet.querySelector("#fb-bedrijven").value.trim(), mooi:sheet.querySelector("#fb-mooi").value.trim(), anders:sheet.querySelector("#fb-anders").value.trim()});
   sheet.querySelector("#fb").addEventListener("input",()=>fbSave(read()));
   sheet.querySelector("#fb").addEventListener("submit",e=>{ e.preventDefault(); const t=fbText(read()); fbSave(read());
     const d=read(), subj="Feedback 21 bochten"+(d.naam?" van "+d.naam:"");
-    location.href="mailto:info@elusiveinnovations.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(t);
+    location.href="mailto:maurice@elusiveinnovations.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(t);
     toast("Je mail opent. Druk op versturen."); });
   sheet.querySelector("#fb-copy").addEventListener("click",ev=>copyText(fbText(read()), ev.currentTarget));
   sheet.querySelector("#x").addEventListener("click",closeSheet);
